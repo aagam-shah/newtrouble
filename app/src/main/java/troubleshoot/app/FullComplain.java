@@ -72,8 +72,6 @@ public class FullComplain extends ActionBarActivity {
             l.setVisibility(View.VISIBLE);
             TextView status_view = (TextView)findViewById(R.id.full_status);
             status_view.setText("Rejected by team");
-
-
         }
         else {
             l = (LinearLayout) findViewById(R.id.deadlinelayout);

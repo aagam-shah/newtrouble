@@ -19,10 +19,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 public class Dashboard extends ActionBarActivity implements ActionBar.TabListener {
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 
     @Override
     protected void onResume() {
         super.onResume();
+
     }
 
     /**
@@ -44,6 +50,7 @@ public class Dashboard extends ActionBarActivity implements ActionBar.TabListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_dashboard);
 
         // Set up the action bar.
