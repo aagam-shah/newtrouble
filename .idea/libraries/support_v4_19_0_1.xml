@@ -1,19 +1,11 @@
 <component name="libraryTable">
   <library name="support-v4-19.0.1">
     <CLASSES>
-<<<<<<< HEAD
-      <root url="jar://$APPLICATION_HOME_DIR$/sdk/extras/android/m2repository/com/android/support/support-v4/19.0.1/support-v4-19.0.1.jar!/" />
+      <root url="jar://$USER_HOME$/adt-bundle-linux-x86_64/sdk/extras/android/m2repository/com/android/support/support-v4/19.0.1/support-v4-19.0.1.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$APPLICATION_HOME_DIR$/sdk/extras/android/m2repository/com/android/support/support-v4/19.0.1/support-v4-19.0.1-sources.jar!/" />
-=======
-      <root url="jar://E:/software downloads/Android/adt-bundle-windows-x86_64-20131030/adt-bundle-windows-x86_64-20131030/sdk/extras/android/m2repository/com/android/support/support-v4/19.0.1/support-v4-19.0.1.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES>
-      <root url="jar://E:/software downloads/Android/adt-bundle-windows-x86_64-20131030/adt-bundle-windows-x86_64-20131030/sdk/extras/android/m2repository/com/android/support/support-v4/19.0.1/support-v4-19.0.1-sources.jar!/" />
->>>>>>> ec6afdc319f3087eaae46ab866e2da877bbb09ea
+      <root url="jar://$USER_HOME$/adt-bundle-linux-x86_64/sdk/extras/android/m2repository/com/android/support/support-v4/19.0.1/support-v4-19.0.1-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

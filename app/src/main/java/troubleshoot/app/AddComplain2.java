@@ -60,7 +60,7 @@ public class AddComplain2 extends Fragment {
     public Context ctx;
     public String path;
     public DB db;
-
+//add new comment in addcomplain2
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.add_complain2, container, false);
