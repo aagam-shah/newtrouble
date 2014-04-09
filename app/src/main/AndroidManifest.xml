@@ -39,6 +39,7 @@
         <activity
             android:name=".Signup2"
             android:configChanges="orientation|screenLayout|keyboard|screenSize"/>
+
     </application>
 
 </manifest>

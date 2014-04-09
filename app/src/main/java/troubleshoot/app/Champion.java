@@ -129,12 +129,12 @@ public class Champion extends Fragment {
 
 
     class ChampionDownloader extends AsyncTask<String, String, String> {
-        public String imgurl = "";
         public String tempLoc = "";
         public ProgressDialog pdg;
         public String userpic = "";
         public String username="";
         public String locality="";
+        public String month="";
 
         @Override
         protected void onPreExecute() {
@@ -161,6 +161,7 @@ public class Champion extends Fragment {
                 username = jsonObject.getString("name");
                 userpic = jsonObject.getString("profilepic");
                 locality = jsonObject.getString("locality");
+                month = jsonObject.getString("month");
                 Log.e("username", "" + username);
 
             } catch (IOException e) {
@@ -238,7 +239,7 @@ public class Champion extends Fragment {
                 editor.putString("champion_name",username);
                 editor.putString("champion_img",tempLoc);
                 editor.putString("champion_locality",locality);
-                editor.putInt("champion_month",3);
+                editor.putInt("champion_month",Integer.parseInt(month));
                 editor.commit();
             } else {
                 champion_name.setVisibility(View.GONE);

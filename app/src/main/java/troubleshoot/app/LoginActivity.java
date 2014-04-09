@@ -153,12 +153,13 @@ public class LoginActivity extends Activity {
                     db.drop();
                     db.close();
 
-
                     Intent dashboardactivity = new Intent(getApplicationContext(),
                             Dashboard.class);
                     startActivity(dashboardactivity);
+                    finish();
                 } catch (Exception e) {
                     Log.e("json", "error " + s);
+                    Toast.makeText(getApplicationContext(), "Wrong Credentials", Toast.LENGTH_SHORT).show();
                 }
 
             } else {

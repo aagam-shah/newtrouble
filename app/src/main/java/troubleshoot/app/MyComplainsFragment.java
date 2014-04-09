@@ -176,10 +176,7 @@ public class MyComplainsFragment extends Fragment {
 
                 }
                 db.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-                Log.e("error", "yoo");
-            }
+
             Cursor c = new DB(getActivity()).getList();
             // db.close();
             adapter = new ComplainAdapter(getActivity(), R.layout.complain_item,
@@ -190,6 +187,10 @@ public class MyComplainsFragment extends Fragment {
             lv.setAdapter(adapter);
 
             new DownloadAdminComplains().execute();
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.e("error", "yoo");
+            }
         }
     }
 
