@@ -3,7 +3,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
                 android:background="@drawable/paper019">
-
+<!-- this is coo -->
 <LinearLayout
               android:layout_width="match_parent"
               android:layout_height="fill_parent"
