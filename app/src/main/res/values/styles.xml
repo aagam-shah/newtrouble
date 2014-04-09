@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Abtab" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="actionBarItemBackground">@drawable/selectable_background_abtab</item>
+        <item name="popupMenuStyle">@style/PopupMenu.Abtab</item>
+        <item name="dropDownListViewStyle">@style/DropDownListView.Abtab</item>
+        <item name="actionBarTabStyle">@style/ActionBarTabStyle.Abtab</item>
+        <item name="actionDropDownStyle">@style/DropDownNav.Abtab</item>
+        <item name="actionBarStyle">@style/ActionBar.Solid.Abtab</item>
+        <item name="actionModeBackground">@drawable/cab_background_top_abtab</item>
+        <item name="actionModeSplitBackground">@drawable/cab_background_bottom_abtab</item>
+        <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Abtab</item>
+        <item name="actionBarTabTextStyle">@style/ABtabtext</item>
+        <!-- Light.DarkActionBar specific -->
+        <item name="actionBarWidgetTheme">@style/Theme.Abtab.Widget</item>
+
+    </style>
+
+    <style name="ActionBar.Solid.Abtab" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="background">@drawable/ab_solid_abtab</item>
+        <item name="backgroundStacked">@drawable/ab_stacked_solid_abtab</item>
+        <item name="backgroundSplit">@drawable/ab_bottom_solid_abtab</item>
+        <item name="progressBarStyle">@style/ProgressBar.Abtab</item>
+    </style>
+
+    <style name="ActionBar.Transparent.Abtab" parent="@style/Widget.AppCompat.ActionBar">
+        <item name="background">@drawable/ab_transparent_abtab</item>
+        <item name="progressBarStyle">@style/ProgressBar.Abtab</item>
+    </style>
+
+    <style name="PopupMenu.Abtab" parent="@style/Widget.AppCompat.PopupMenu">
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_abtab</item>
+    </style>
+
+    <style name="DropDownListView.Abtab" parent="@style/Widget.AppCompat.ListView.DropDown">
+        <item name="android:listSelector">@drawable/selectable_background_abtab</item>
+
+    </style>
+
+    <style name="ActionBarTabStyle.Abtab" parent="@style/Widget.AppCompat.ActionBar.TabView">
+        <item name="android:background">@drawable/tab_indicator_ab_abtab</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="DropDownNav.Abtab" parent="@style/Widget.AppCompat.Spinner.DropDown.ActionBar">
+        <item name="android:background">@drawable/spinner_background_ab_abtab</item>
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_abtab</item>
+        <item name="android:dropDownSelector">@drawable/selectable_background_abtab</item>
+    </style>
+
+    <style name="ProgressBar.Abtab" parent="@style/Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/progress_horizontal_abtab</item>
+    </style>
+
+    <style name="ActionButton.CloseMode.Abtab" parent="@style/Widget.AppCompat.ActionButton.CloseMode">
+        <item name="android:background">@drawable/btn_cab_done_abtab</item>
+    </style>
+
+    <!-- this style is only referenced in a Light.DarkActionBar based theme -->
+    <style name="Theme.Abtab.Widget" parent="@style/Theme.AppCompat">
+        <item name="popupMenuStyle">@style/PopupMenu.Abtab</item>
+        <item name="dropDownListViewStyle">@style/DropDownListView.Abtab</item>
+    </style>
+
+    <style name="ABtabtext">
+        <item name="android:textAllCaps">false</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="buttonStyle" parent="@android:style/Widget.Button">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:gravity">center</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">0.6</item>
+        <item name="android:background">@drawable/custom_btn</item>
+        <item name="android:padding">10dip</item>
+    </style>
+</resources>

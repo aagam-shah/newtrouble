@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:padding="10dp"
+
+                android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/item_hidden"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/item_title"
+        android:text="Pot hole problem beside the road"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:paddingTop="6dp"
+        android:text="17/04/2014"
+        android:id="@+id/item_date"
+        android:layout_below="@+id/item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:layout_below="@+id/item_title"
+        android:paddingTop="2dp"
+        android:paddingRight="2dp"
+        android:layout_toLeftOf="@+id/item_status"
+        android:src="@drawable/noticon_clock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_below="@+id/item_title"
+        android:paddingTop="6dp"
+        android:text="Pending"
+        android:textAllCaps="true"
+        android:id="@+id/item_status"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>
