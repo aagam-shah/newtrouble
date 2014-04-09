@@ -1,67 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-              android:weightSum="1">
-
-    <ImageView
-        android:id="@+id/champion_image"
-        android:layout_marginTop="7dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:src="@drawable/honey"/>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
 
     <LinearLayout
-        android:paddingTop="22dp"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="fill_parent"
+        android:weightSum="1">
 
-        <TextView
-            android:text="Name:"
-            android:paddingLeft="10dp"
-            android:textColor="#FF0000"
-            android:textStyle="bold"
-            android:textSize="20sp"
+
+        <ImageView
+            android:id="@+id/champion_image"
+            android:layout_marginTop="7dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/honey"/>
+
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:id="@+id/champion_name"
-            android:paddingLeft="10dp"
-            android:text="M.S.Dhoniii"
-            android:textColor="#FF0000"
-            android:textSize="20sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/no"
-        android:paddingTop="18dp"
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:text="No. of complains posted:"
-            android:paddingLeft="10dp"
-            android:textColor="#FF0000"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/champion_complains"
-            android:paddingLeft="10dp"
-            android:text="05"
+            android:text="M.SS.Dhoniii"
             android:textColor="#FF0000"
             android:textSize="25sp"
+            android:layout_gravity="center_horizontal"/>
+
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:id="@+id/champion_locality"
+            android:text="Navrangpura"
+            android:textColor="#FF0000"
+            android:textSize="20sp"
+            android:layout_gravity="center_horizontal"/>
+        <!--<TextView-->
+        <!--android:text="Name:"-->
+        <!--android:paddingLeft="10dp"-->
+        <!--android:textColor="#FF0000"-->
+        <!--android:textStyle="bold"-->
+        <!--android:textSize="20sp"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"/>-->
+
+
+        <LinearLayout
+            android:id="@+id/no"
+            android:visibility="gone"
+            android:paddingTop="18dp"
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="No. of complains posted:"
+                android:paddingLeft="10dp"
+                android:textColor="#FF0000"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/champion_complains"
+                android:paddingLeft="10dp"
+                android:text="05"
+                android:textColor="#FF0000"
+                android:textSize="25sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
     </LinearLayout>
-</LinearLayout>
+</ScrollView>
