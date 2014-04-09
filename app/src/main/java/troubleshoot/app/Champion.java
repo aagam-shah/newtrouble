@@ -46,7 +46,7 @@ public class Champion extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_champion,container,false);
-
+//new comment
         SharedPreferences pref = getActivity().getSharedPreferences("troubles", Context.MODE_PRIVATE);
         year = pref.getInt("champion_year",0);
         month = pref.getInt("champion_month",0);

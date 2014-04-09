@@ -7,8 +7,13 @@
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
+<<<<<<< HEAD
             <option value="C:\Users\Vandit\newtrouble" />
             <option value="C:\Users\Vandit\newtrouble\app" />
+=======
+            <option value="C:\Users\Mrunal Dave\newtrouble" />
+            <option value="C:\Users\Mrunal Dave\newtrouble\app" />
+>>>>>>> ec6afdc319f3087eaae46ab866e2da877bbb09ea
           </set>
         </option>
       </GradleProjectSettings>
