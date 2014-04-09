@@ -1,22 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView     xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/paper019">
+
+<LinearLayout
               android:layout_width="match_parent"
-              android:layout_height="wrap_content"
+              android:layout_height="fill_parent"
               android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/am_logo"
+        android:layout_gravity="center_horizontal" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/trouble"
+        android:layout_gravity="center_horizontal" />
+
+
 
     <EditText
         android:id="@+id/etcontact"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:background="#ffffff"
         android:layout_marginTop="80dp"
-        android:hint="Contact Number"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:padding="15dp"
+        android:hint="Phone"
         android:inputType="phone"/>
 
     <EditText
         android:id="@+id/etpassword"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:background="#ffffff"
+        android:padding="15dp"
+        android:layout_margin="10dp"
         android:hint="Password"
         android:inputType="textPassword"/>
 
@@ -26,15 +53,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
         android:text="LOG IN"/>
-
-    <TextView
-        android:layout_gravity="center_horizontal"
-        android:textSize="20sp"
-        android:layout_margin="10dp"
-        android:text="------ OR -------"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
 
 
     <Button
@@ -44,7 +64,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:text="Register Here"/>
+        android:text="SIGN UP"/>
 
 
 </LinearLayout>
+</ScrollView>

@@ -3,9 +3,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="10"
+    android:background="@drawable/paper019"
     android:orientation="vertical" >
 
-    
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/am_logo"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center_horizontal" />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/trouble"
+        android:layout_gravity="center_horizontal" />
 
     <ImageButton
         android:scaleType="fitXY"
@@ -13,7 +25,7 @@
         android:layout_width="125dp"
         android:layout_height="125dp"
         android:layout_gravity="center"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="30dp"
         android:src="@drawable/ic_launcher" />
     
     <Button
@@ -22,7 +34,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"      
+        android:layout_marginTop="10dp"
+        style="@style/buttonStyle"
         android:text="REGISTER" />
 
 </LinearLayout>

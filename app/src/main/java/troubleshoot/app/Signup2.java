@@ -52,6 +52,7 @@ public class Signup2 extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup2);
+
         emails = getIntent().getStringExtra("email");
         passws = getIntent().getStringExtra("pass");
         phones = getIntent().getStringExtra("phone");

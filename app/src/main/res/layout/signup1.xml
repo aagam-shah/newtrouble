@@ -1,45 +1,65 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="fill_parent"
+            android:background="@drawable/paper019"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="7"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        tools:context=".MainActivity">
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/am_logo"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp"
+            android:layout_gravity="center_horizontal" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/trouble"
+            android:layout_gravity="center_horizontal" />
 
 
         <EditText
             android:id="@+id/editname"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
             android:hint="Name"
-            android:inputType="textPersonName"/>
+            android:inputType="textPersonName"
+            android:background="#ffffff"
+            android:padding="15dp"/>
 
         <EditText
             android:id="@+id/editarea"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:layout_weight="1"
             android:hint="Area"
-            android:inputType="textPersonName"/>
+            android:inputType="textPersonName"
+            android:background="#ffffff"
+            android:padding="15dp"/>
 
         <EditText
             android:id="@+id/editphone"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-
-            android:layout_weight="1"
+            android:background="#ffffff"
+            android:padding="15dp"
             android:hint="Mobile Number(Username)"
             android:inputType="phone"/>
 
@@ -48,7 +68,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:layout_weight="1"
+            android:background="#ffffff"
+            android:padding="15dp"
             android:hint="Password(more than 4 chars)"
             android:inputType="textPassword"/>
 
@@ -57,8 +78,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-
-            android:layout_weight="1"
+            android:background="#ffffff"
+            android:padding="15dp"
             android:hint="Confirm Password"
             android:inputType="textPassword"/>
 
@@ -68,8 +89,8 @@
             android:layout_height="wrap_content"
             android:hint="E-Mail"
             android:layout_margin="5dp"
-
-            android:layout_weight="1"
+            android:background="#ffffff"
+            android:padding="15dp"
             android:inputType="textEmailAddress"/>
 
         <Button

@@ -25,6 +25,7 @@
 
         <activity
             android:name=".LoginActivity"
+            android:theme="@android:style/Theme.NoTitleBar"
             android:configChanges="orientation|screenLayout|keyboard|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -33,11 +34,13 @@
         </activity>
         <activity
             android:name=".Signup1"
+            android:theme="@android:style/Theme.NoTitleBar"
             android:configChanges="orientation|screenLayout|keyboard|screenSize">
 
         </activity>
         <activity
             android:name=".Signup2"
+            android:theme="@android:style/Theme.NoTitleBar"
             android:configChanges="orientation|screenLayout|keyboard|screenSize"/>
 
     </application>
