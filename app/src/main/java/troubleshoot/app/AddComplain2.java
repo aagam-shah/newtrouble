@@ -53,6 +53,12 @@ import java.util.Random;
 
 public class AddComplain2 extends Fragment {
     public String[] categ_array = {"Wastage", "Roads", "Stray animals", "Cleanliness"};
+    public String[]  central_zone = { "Khadia", "Kalupur", "Dariyapur", "Shahpur", "Raykhad", "Jamalpur", "Dudheshwar", "Madhupura", "Girdharnagar",};
+    public String[]  east_zone = { "Rajpur", "Arbudanagar", "Odhav", "Vastral", "Mahavirnagar", "Bhaipura", "Amraiwadi", "Ramol", "Hathijan"};
+    public String[]  west_zone = { "Paldi", "Vasna", "Ambawadi", "Navrangpura", "Juna Vadaj", "Nava Vadaj", "Naranpura", "Stadium", "Sabarmati", "Chandkheda", "Motera", "Stadium", "Sabarmati"};
+    public String[]  north_zone = { "Saraspur", "Sardarnagar", "Noblenagar", "Naroda", "Kubernagar", "Saijpur", "Meghaninagar", "Asarva", "Naroda Road", "India Colony", "Krushnanagar", "Thakkarnagar", "Saraspur"};
+    public String[]  south_zone = { "Isanpur", "Lambha", "Maninagar", "Kankaria", "Behrampura", "Dani Limda", "Ghodasar", "Indrapuri", "Khokhra", "Vatva", "Isanpur", "Stadium", "Sabarmati"};
+    public String[]  new_west_zone = { "Vejalpur", "Jodhpur", "Bodakdev", "Thaltej", "Ghatlodia", "Ranip", "Kali", "Gota", "Satellite"};
     public EditText title, descr, addr;
     public Spinner category;
     public AutoCompleteTextView locality;
