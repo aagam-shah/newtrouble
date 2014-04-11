@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -12,7 +14,16 @@ import android.widget.Toast;
 public class Signup1 extends Activity {
 
     public Button cont;
-    public EditText editphone, editpass,editconfpass, editemail, editloc, editname;
+    public EditText editphone, editpass,editconfpass, editemail, editname;
+    public AutoCompleteTextView editloc;
+    public String[] area_array = {"Bapu Nagar", "Prahlad Nagar", "C.G.Road", "S.G. Road", "Navrangpura", "Vastrapur", "Ashram Road",
+            "Paldi", "Saraspur", "Satellite Area", "Sarangpur Darwaza", "Ambawadi", "Ellis Bridge", "Ghatlodia", "Gulbai Tekra",
+            "Gita Mandir Road", "Mem Nagar", "Naranpura",  "University Area", "Mithakhali Six Roads", "Vadaj", "Vasana", "Naroda",
+            "Narol", "Asarwa", "Meghani Nagar", "Ranip", "Bopal", "Sabarmati", "Shahibaug", "Astodia", "Dariapur", "Kadia",
+            "Kalupur", "Lal Darwaza", "Raipur", "Shahpur", "Dani Limbada", "Jamalpur", "Kankaria", "Khokra", "Mehmedabad",
+            "Odhav", "Maninagar", "Sanand", "Chandkheda", "Vijay Char Rasta", "Vejalpur", "Jivraj Park", "Shivaranjani",
+            "Nehru Park","Bodakdev","Judges Bunglow", "Others"
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +42,11 @@ public class Signup1 extends Activity {
         editpass = (EditText) findViewById(R.id.editpassword);
         editconfpass = (EditText) findViewById(R.id.editconfirmpassword);
         editphone = (EditText) findViewById(R.id.editphone);
-        editloc = (EditText) findViewById(R.id.editarea);
+       // editloc = (EditText) findViewById(R.id.editarea);
         editname = (EditText) findViewById(R.id.editname);
+        editloc = (AutoCompleteTextView) findViewById(R.id.editarea);
+        ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(),android.R.layout.simple_list_item_1,area_array);
+        editloc.setAdapter(adapter);
 
 
         cont = (Button) findViewById(R.id.bcontinue);
