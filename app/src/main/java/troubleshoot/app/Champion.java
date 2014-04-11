@@ -63,7 +63,7 @@ public class Champion extends Fragment {
         champion_name=(TextView)view.findViewById(R.id.champion_name);
         champion_locality=(TextView)view.findViewById(R.id.champion_locality);
         ConnectionDetector detector = new ConnectionDetector(getActivity());
-        if (year == 0) {
+        if (month == 0) {
             //download latest champion
             if(detector.isConnectingToInternet())
             new ChampionDownloader().execute();
@@ -74,6 +74,7 @@ public class Champion extends Fragment {
         } else {
             Date d = new Date();
             int curr_month = d.getMonth();
+            curr_month++;
             if (curr_month != month) {
                 //Download complains
                 if(detector.isConnectingToInternet())
