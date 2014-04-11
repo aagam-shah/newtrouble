@@ -62,16 +62,25 @@ public class Champion extends Fragment {
         imageView = (ImageView) view.findViewById(R.id.champion_image);
         champion_name=(TextView)view.findViewById(R.id.champion_name);
         champion_locality=(TextView)view.findViewById(R.id.champion_locality);
+        ConnectionDetector detector = new ConnectionDetector(getActivity());
         if (year == 0) {
             //download latest champion
+            if(detector.isConnectingToInternet())
             new ChampionDownloader().execute();
+            else{
+                Toast.makeText(getActivity(),"Can't connect to internet",Toast.LENGTH_SHORT).show();
+            }
 
         } else {
             Date d = new Date();
             int curr_month = d.getMonth();
             if (curr_month != month) {
                 //Download complains
-                new ChampionDownloader().execute();
+                if(detector.isConnectingToInternet())
+                    new ChampionDownloader().execute();
+                else{
+                    Toast.makeText(getActivity(),"Can't connect to internet",Toast.LENGTH_SHORT).show();
+                }
             } else {
                 if (!champion_local.equals("Default")) {
 
@@ -86,11 +95,20 @@ public class Champion extends Fragment {
                         champion_name.setText(name);
                         champion_locality.setText(locality);
                     }
-                    else
-                        new ChampionDownloader().execute();
+                    else{
+                        if(detector.isConnectingToInternet())
+                            new ChampionDownloader().execute();
+                        else{
+                            Toast.makeText(getActivity(),"Can't connect to internet",Toast.LENGTH_SHORT).show();
+                        }
+                    }
                 } else {
                     //Download complains
-                    new ChampionDownloader().execute();
+                    if(detector.isConnectingToInternet())
+                        new ChampionDownloader().execute();
+                    else{
+                        Toast.makeText(getActivity(),"Can't connect to internet",Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         }
