@@ -43,7 +43,7 @@
             android:background="#ffffff"
             android:padding="15dp"/>
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/editarea"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

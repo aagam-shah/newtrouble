@@ -43,9 +43,20 @@
         android:layout_height="wrap_content"
         android:background="#ffffff"
         android:padding="15dp"
-        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="1dp"
         android:hint="Password"
         android:inputType="textPassword"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/question"
+        android:id="@+id/ibforgotpass"/>
 
     <Button
         android:id="@+id/blogin"

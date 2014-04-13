@@ -95,52 +95,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <TextView
-                android:text="Complains Posted:"
-                android:visibility="gone"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:layout_below="@+id/textemail"
-                android:id="@+id/post"
-                android:paddingTop="15dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <TextView
-                android:id="@+id/textpost"
-                android:visibility="gone"
-                android:text="15"
-                android:layout_toRightOf="@+id/post"
-                android:layout_below="@+id/textemail"
-                android:textSize="35sp"
-                android:textColor="#f00"
-                android:padding="12dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <TextView
-                android:text="Complains Solved:"
-                android:visibility="gone"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:layout_below="@+id/textpost"
-                android:id="@+id/solve"
-                android:paddingTop="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <TextView
-                android:id="@+id/textsolve"
-                android:visibility="gone"
-                android:text="5"
-                android:layout_toRightOf="@+id/solve"
-                android:layout_below="@+id/textpost"
-                android:textSize="35sp"
-                android:textColor="#f00"
-                android:padding="12dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
             <ImageView
                 android:id="@+id/profile_image"
                 android:layout_width="150dp"

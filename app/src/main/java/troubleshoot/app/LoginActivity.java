@@ -1,8 +1,10 @@
 package troubleshoot.app;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -11,6 +13,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +36,8 @@ public class LoginActivity extends Activity {
     TextView phoneno, password;
     String phone, pass;
     Button login, register;
+    ImageButton forgotpassword;
+    final Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +56,36 @@ public class LoginActivity extends Activity {
 
         login = (Button) findViewById(R.id.blogin);
         register = (Button) findViewById(R.id.bregister);
+        forgotpassword = (ImageButton) findViewById(R.id.ibforgotpass);
+
+// dialog for forgot password
+        forgotpassword.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+
+                AlertDialog.Builder d = new AlertDialog.Builder(context);
+                d.setIcon(R.drawable.am_logo1);
+                d.setTitle("Forgot Password?");
+                d.setMessage("Enter your contact in the field below. The password details and further instructions will be send in your email-id");
+               final EditText input = new EditText(context);
+                d.setView(input);
+                d.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        String value = input.getText().toString();
+                        // do something
+                        // continue
+                    }
+                });
+                d.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+                d.show();
+            }
+        });
 
         login.setOnClickListener(new View.OnClickListener() {
 
@@ -163,7 +199,7 @@ public class LoginActivity extends Activity {
                 }
 
             } else {
-                Log.e("retur error", "" + s);
+                Log.e("return error", "" + s);
                 Toast.makeText(getApplicationContext(), "Wrong Credentials", Toast.LENGTH_SHORT).show();
             }
 

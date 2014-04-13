@@ -42,6 +42,9 @@
             android:name=".Signup2"
             android:theme="@android:style/Theme.NoTitleBar"
             android:configChanges="orientation|screenLayout|keyboard|screenSize"/>
+        <activity
+            android:name=".EditProfile"
+            android:configChanges="orientation|screenLayout|keyboard|screenSize"/>
 
     </application>
 
