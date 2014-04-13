@@ -153,10 +153,10 @@ public class Signup2 extends Activity {
             Log.e("app", "success");
 
             Bitmap bitmap = BitmapFactory.decodeFile(imagepath);
+            Bitmap bmp = bitmap.createScaledBitmap(bitmap,640,480,true);
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 30, outputStream);
+            bmp.compress(Bitmap.CompressFormat.JPEG, 50, outputStream);
             InputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
-
 
             HttpClient httpclient = new DefaultHttpClient();
             httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
