@@ -53,12 +53,19 @@ import java.util.Random;
 
 public class AddComplain2 extends Fragment {
     public String[] categ_array = {"Wastage", "Roads", "Stray animals", "Cleanliness"};
-    public String[]  central_zone = { "Khadia", "Kalupur", "Dariyapur", "Shahpur", "Raykhad", "Jamalpur", "Dudheshwar", "Madhupura", "Girdharnagar",};
+    public String[]  central_zone = { "Khadia", "Kalupur", "Dariyapur", "Shahpur", "Raykhad", "Jamalpur", "Dudheshwar", "Madhupura", "Girdharnagar"};
     public String[]  east_zone = { "Rajpur", "Arbudanagar", "Odhav", "Vastral", "Mahavirnagar", "Bhaipura", "Amraiwadi", "Ramol", "Hathijan"};
     public String[]  west_zone = { "Paldi", "Vasna", "Ambawadi", "Navrangpura", "Juna Vadaj", "Nava Vadaj", "Naranpura", "Stadium", "Sabarmati", "Chandkheda", "Motera", "Stadium", "Sabarmati"};
     public String[]  north_zone = { "Saraspur", "Sardarnagar", "Noblenagar", "Naroda", "Kubernagar", "Saijpur", "Meghaninagar", "Asarva", "Naroda Road", "India Colony", "Krushnanagar", "Thakkarnagar", "Saraspur"};
     public String[]  south_zone = { "Isanpur", "Lambha", "Maninagar", "Kankaria", "Behrampura", "Dani Limda", "Ghodasar", "Indrapuri", "Khokhra", "Vatva", "Isanpur", "Stadium", "Sabarmati"};
     public String[]  new_west_zone = { "Vejalpur", "Jodhpur", "Bodakdev", "Thaltej", "Ghatlodia", "Ranip", "Kali", "Gota", "Satellite"};
+    public String[] all = { "Khadia", "Kalupur", "Dariyapur", "Shahpur", "Raykhad", "Jamalpur", "Dudheshwar", "Madhupura", "Girdharnagar",
+            "Rajpur", "Arbudanagar", "Odhav", "Vastral", "Mahavirnagar", "Bhaipura", "Amraiwadi", "Ramol", "Hathijan",
+            "Paldi", "Vasna", "Ambawadi", "Navrangpura", "Juna Vadaj", "Nava Vadaj", "Naranpura", "Stadium", "Sabarmati", "Chandkheda", "Motera", "Stadium", "Sabarmati",
+            "Saraspur", "Sardarnagar", "Noblenagar", "Naroda", "Kubernagar", "Saijpur", "Meghaninagar", "Asarva", "Naroda Road", "India Colony", "Krushnanagar", "Thakkarnagar", "Saraspur",
+            "Isanpur", "Lambha", "Maninagar", "Kankaria", "Behrampura", "Dani Limda", "Ghodasar", "Indrapuri", "Khokhra", "Vatva", "Isanpur", "Stadium", "Sabarmati",
+            "Vejalpur", "Jodhpur", "Bodakdev", "Thaltej", "Ghatlodia", "Ranip", "Kali", "Gota", "Satellite" };
+    //central_zone+east_zone+west_zone+north_zone+south_zone+new_west_zone;
     public EditText title, descr, addr;
     public Spinner category;
     public AutoCompleteTextView locality;
@@ -77,8 +84,16 @@ public class AddComplain2 extends Fragment {
         descr = (EditText) view.findViewById(R.id.description);
         addr = (EditText) view.findViewById(R.id.address);
         locality = (AutoCompleteTextView) view.findViewById(R.id.location);
+        ArrayAdapter<String> localityda = new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_spinner_dropdown_item, all);
+        locality.setAdapter(localityda);
+        locality.setDropDownBackgroundResource(R.drawable.autcomplete);
+
+
         submit = (Button) view.findViewById(R.id.submit);
         category = (Spinner) view.findViewById(R.id.category);
+
+
         ArrayAdapter<String> da = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_spinner_dropdown_item, categ_array);
         category.setAdapter(da);

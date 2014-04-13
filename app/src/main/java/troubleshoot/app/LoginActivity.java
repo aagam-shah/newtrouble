@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -42,7 +43,7 @@ public class LoginActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         SharedPreferences preferences = getSharedPreferences("troubles", Context.MODE_PRIVATE);
         if (preferences.getInt("id", -1) != -1) {
             Intent intent = new Intent(getApplicationContext(), Dashboard.class);

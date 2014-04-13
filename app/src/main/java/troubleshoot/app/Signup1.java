@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -38,6 +39,7 @@ public class Signup1 extends Activity {
         */
 
         setContentView(R.layout.signup1);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         editemail = (EditText) findViewById(R.id.editemail);
         editpass = (EditText) findViewById(R.id.editpassword);
         editconfpass = (EditText) findViewById(R.id.editconfirmpassword);
@@ -47,7 +49,7 @@ public class Signup1 extends Activity {
         editloc = (AutoCompleteTextView) findViewById(R.id.editarea);
         ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(),android.R.layout.simple_list_item_1,area_array);
         editloc.setAdapter(adapter);
-
+        editloc.setDropDownBackgroundResource(R.drawable.autcomplete);
 
         cont = (Button) findViewById(R.id.bcontinue);
         cont.setOnClickListener(new View.OnClickListener() {

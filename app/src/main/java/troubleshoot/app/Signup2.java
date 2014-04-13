@@ -15,6 +15,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -52,7 +53,7 @@ public class Signup2 extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup2);
-
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         emails = getIntent().getStringExtra("email");
         passws = getIntent().getStringExtra("pass");
         phones = getIntent().getStringExtra("phone");
