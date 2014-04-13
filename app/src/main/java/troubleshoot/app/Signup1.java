@@ -37,9 +37,9 @@ public class Signup1 extends Activity {
             finish();
         }
         */
-
-        setContentView(R.layout.signup1);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.signup1);
+
         editemail = (EditText) findViewById(R.id.editemail);
         editpass = (EditText) findViewById(R.id.editpassword);
         editconfpass = (EditText) findViewById(R.id.editconfirmpassword);
