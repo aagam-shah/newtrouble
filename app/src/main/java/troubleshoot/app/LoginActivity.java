@@ -68,12 +68,20 @@ public class LoginActivity extends Activity {
                 AlertDialog.Builder d = new AlertDialog.Builder(context);
                 d.setIcon(R.drawable.am_logo1);
                 d.setTitle("Forgot Password?");
-                d.setMessage("Enter your contact in the field below. The password details and further instructions will be send in your email-id");
+                d.setMessage("Enter your contact in the field below. The password details and further instructions will be sent to your registered email-id");
                final EditText input = new EditText(context);
                 d.setView(input);
                 d.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         String value = input.getText().toString();
+                        ConnectionDetector detector = new ConnectionDetector(getApplicationContext());
+                        if(detector.isConnectingToInternet()){
+                            new ForgetPass(value).execute();
+                        }
+                        else{
+                            Toast.makeText(getApplicationContext(),"No connection"
+                                    ,Toast.LENGTH_SHORT).show();
+                        }
                         // do something
                         // continue
                     }
@@ -122,6 +130,42 @@ public class LoginActivity extends Activity {
         });
     }
 
+    class ForgetPass extends AsyncTask<String,String,String>{
+        public String phoneno="";
+        public ForgetPass(String value){
+            phoneno=value;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Toast.makeText(getApplicationContext(),"Please check your mail",Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            HttpClient client = new DefaultHttpClient();
+            HttpPost post = new HttpPost("https://blog-aagam.rhcloud.com" +
+                    "/sendmail.php?phone="+phoneno);
+
+            try {
+                HttpResponse resp = client.execute(post);
+
+                String response = EntityUtils.toString(resp.getEntity());
+                Log.e("response of conf",""+response);
+            }
+            catch (Exception e){
+                e.printStackTrace();
+                return "error";
+            }
+                return null;
+        }
+    }
 
     class LoginExec extends AsyncTask<String, String, String> {
         public ProgressDialog pdg;
