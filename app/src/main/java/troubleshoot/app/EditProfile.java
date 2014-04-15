@@ -3,11 +3,15 @@ package troubleshoot.app;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -64,7 +68,7 @@ public class EditProfile extends Activity {
         editpass = (EditText) findViewById(R.id.etnewpass);
         editconfpass = (EditText) findViewById(R.id.etconfpass);
         buttondone = (Button) findViewById(R.id.bchange);
-        buttonphoto = (Button) findViewById(R.id.bchangephoto);
+
 
         preferences = getSharedPreferences("troubles", Context.MODE_PRIVATE);
         profile_image = (ImageView) findViewById(R.id.profile_image);
@@ -79,6 +83,16 @@ public class EditProfile extends Activity {
         origPath = imgloc;
         Bitmap bitmap = BitmapFactory.decodeFile(imgloc);
         profile_image.setImageBitmap(bitmap);
+        profile_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(
+                        Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(i, 153);
+            }
+        });
+
+
         buttondone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,6 +103,30 @@ public class EditProfile extends Activity {
                 new UpdateProfile().execute();
             }
         });
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != Activity.RESULT_OK)
+            return;
+        if (requestCode == 153) {
+            Uri selectedImageUri = data.getData();
+            path = getPath(selectedImageUri);
+
+            Bitmap bitmap = BitmapFactory.decodeFile(path);
+
+            profile_image.setImageBitmap(bitmap);
+        }
+    }
+
+    public String getPath(Uri uri) {
+        String[] projection = {MediaStore.Images.Media.DATA};
+        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
     }
 
 
@@ -107,17 +145,16 @@ public class EditProfile extends Activity {
             pdg.dismiss();
 
 
-            if(s.contains("not")||s.equals("")){
-                Toast.makeText(EditProfile.this,"error",Toast.LENGTH_SHORT).show();
-            }else{
+            if (s.contains("not") || s.equals("")) {
+                Toast.makeText(EditProfile.this, "error", Toast.LENGTH_SHORT).show();
+            } else {
                 SharedPreferences preferences = getSharedPreferences("troubles", Context.MODE_PRIVATE);
-
                 SharedPreferences.Editor editor = preferences.edit();
-
                 editor.putString("name", name);
-                editor.putString("locality",locality);
+                editor.putString("locality", locality);
                 editor.putString("img_loc", path);
-                editor.putString("email",mail);
+                editor.putString("email", mail);
+
                 editor.commit();
 
             }
@@ -126,7 +163,7 @@ public class EditProfile extends Activity {
 
         @Override
         protected String doInBackground(String... strings) {
-            String result = null;
+            String result = "";
             //  retlocation = null;
             ///add code for image
             if (!path.equals(origPath)) {
@@ -160,8 +197,8 @@ public class EditProfile extends Activity {
                     HttpEntity resEntity = response.getEntity();
 
                     // Log.e("resp", "" + EntityUtils.toString(resEntity));
-                    path = EntityUtils.toString(resEntity);
-                    Log.e("response", path);
+                    result = EntityUtils.toString(resEntity);
+                    Log.e("response", result);
                     //Log.e("resp loc",""+resEntity.toString());
                 } catch (Exception e) {
                     Log.e("resp", "exception in response");
@@ -170,22 +207,20 @@ public class EditProfile extends Activity {
                 }
 
             } else {
-                path = "Default";
+                result = "Default";
             }
             try {
-
-
                 //adding data
                 HttpClient client = new DefaultHttpClient();
                 HttpPost post = new HttpPost("https://blog-aagam.rhcloud.com/updateprofile.php");
                 List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-                pairs.add(new BasicNameValuePair("id",""+id));
+                pairs.add(new BasicNameValuePair("id", "" + id));
                 pairs.add(new BasicNameValuePair("name", name));
                 pairs.add(new BasicNameValuePair("password", pass));
                 pairs.add(new BasicNameValuePair("emailid", mail));
                 pairs.add(new BasicNameValuePair("locality", locality));
                 //pairs.add(new BasicNameValuePair("phone", phones));
-                pairs.add(new BasicNameValuePair("imgloc", path));
+                pairs.add(new BasicNameValuePair("imgloc", result));
 
                 post.setEntity(new UrlEncodedFormEntity(pairs));
 
@@ -194,7 +229,6 @@ public class EditProfile extends Activity {
                 result = EntityUtils.toString(response.getEntity());
 
                 Log.e("res", result);
-
 
 
             } catch (Exception e) {

@@ -30,6 +30,7 @@
                     android:text="Yo Yo Honey Singh"
                     android:textColor="#f00"
                     android:paddingTop="4dp"
+                    android:maxLines="1"
                     android:layout_below="@+id/tvname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -52,6 +53,7 @@
                     android:layout_below="@+id/tvlocality"
                     android:textSize="20sp"
                     android:textColor="#f00"
+                    android:maxLines="1"
                     android:paddingTop="4dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -73,6 +75,7 @@
                     android:textSize="20sp"
                     android:textColor="#f00"
                     android:paddingTop="4dp"
+                    android:maxLines="1"
                     android:paddingBottom="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -81,6 +84,7 @@
                     android:id="@+id/tvnewpass"
                     android:text="New Password"
                     android:textStyle="bold"
+                    android:maxLines="1"
                     android:textSize="18sp"
                     android:layout_below="@+id/ettextemail"
                     android:paddingTop="20dp"
@@ -92,6 +96,7 @@
                     android:layout_below="@+id/tvnewpass"
                     android:textSize="20sp"
                     android:textColor="#f00"
+                    android:maxLines="1"
                     android:paddingTop="4dp"
                     android:paddingBottom="15dp"
                     android:layout_width="wrap_content"
@@ -134,15 +139,6 @@
                     android:layout_margin="14dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/honey"/>
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/bchangephoto"
-                    android:layout_below="@+id/profile_image"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="20dp"
-                    android:text="Edit Photo"
-                    android:layout_centerHorizontal="true"/>
 
             </RelativeLayout>
 
