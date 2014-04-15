@@ -118,10 +118,7 @@ public class Dashboard extends ActionBarActivity implements ActionBar.TabListene
             finish();
             return true;
         }else if(id==R.id.action_settings1){
-                SharedPreferences preferences1 = getSharedPreferences("troubles", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor1 = preferences1.edit();
-                editor1.putInt("id", -1);
-                editor1.commit();
+
                 Intent intent = new Intent(getApplicationContext(),EditProfile.class);
                 startActivity(intent);
                 return true;

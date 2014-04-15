@@ -9,18 +9,32 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import org.apache.http.util.ByteArrayBuffer;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpVersion;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.ContentBody;
+import org.apache.http.entity.mime.content.InputStreamBody;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.CoreProtocolPNames;
+import org.apache.http.util.EntityUtils;
 
-import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Vandit on 4/12/2014.
@@ -29,12 +43,16 @@ public class EditProfile extends Activity {
 
 
     public EditText editname, editlocality, editemail, editpass, editconfpass;
-    public Button buttondone,buttonphoto;
+    public String name, locality, mail, pass;
+    public Button buttondone, buttonphoto;
     public ImageView profile_image;
     public SharedPreferences preferences;
+    public int id;
+    public String path = "";
+    public String origPath;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.editprofile);
@@ -54,105 +72,119 @@ public class EditProfile extends Activity {
         editname.setText(preferences.getString("name", "Default"));
         editemail.setText(preferences.getString("email", "Default"));
         editlocality.setText(preferences.getString("locality", "Default"));
-
+        id = preferences.getInt("id", 0);
         String imgloc = preferences.getString("img_loc", "Default");
-
-        if (imgloc.equals("Default")) {
-            new ImageDownloader(profile_image, preferences.getString("img_ol", "Default")).execute();
-        } else {
-            Bitmap bitmap = BitmapFactory.decodeFile(imgloc);
-            profile_image.setImageBitmap(bitmap);
-        }
-
-
+        path = imgloc;
+        origPath = imgloc;
+        Bitmap bitmap = BitmapFactory.decodeFile(imgloc);
+        profile_image.setImageBitmap(bitmap);
+        buttondone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                name = editname.getText().toString();
+                mail = editemail.getText().toString();
+                locality = editlocality.getText().toString();
+                pass = editpass.getText().toString();
+                new UpdateProfile().execute();
+            }
+        });
     }
 
 
-    class ImageDownloader extends AsyncTask<String, String, String> {
-        public ImageView iv;
-        public String imgurl = "";
-        public String tempLoc = "";
+    class UpdateProfile extends AsyncTask<String, String, String> {
         public ProgressDialog pdg;
-
-        public ImageDownloader(ImageView imageView, String url) {
-            //    pdg = ProgressDialog.show(getActivity(), "", "Downloading Profile Pic", true);
-            iv = imageView;
-            imgurl = url;
-        }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-        }
-
-        @Override
-        protected String doInBackground(String[] objects) {
-            Bitmap b;
-            File root = android.os.Environment.getExternalStorageDirectory();
-
-            File dir = new File(root.getAbsolutePath() + "/mnt/sdcard/troubles");
-            if (dir.exists() == false) {
-                dir.mkdirs();
-            }
-
-            URL url = null; //you can write here any link
-            try {
-                url = new URL(imgurl);
-
-                File file = new File(dir, "TS-" + System.currentTimeMillis() + ".jpg");
-                Log.e("exact path", file.getAbsolutePath());
-                tempLoc = file.getAbsolutePath();
-                long startTime = System.currentTimeMillis();
-                Log.e("DownloadManager", "download begining");
-
-               /* Open a connection to that URL. */
-                URLConnection ucon = url.openConnection();
-
-               /*
-                * Define InputStreams to read from the URLConnection.
-                */
-                InputStream is = ucon.getInputStream();
-                BufferedInputStream bis = new BufferedInputStream(is);
-
-               /*
-                * Read bytes to the Buffer until there is nothing more to read(-1).
-                */
-                ByteArrayBuffer baf = new ByteArrayBuffer(5000);
-                int current = 0;
-                while ((current = bis.read()) != -1) {
-                    baf.append((byte) current);
-                }
-
-               /* Convert the Bytes read to a String. */
-                FileOutputStream fos = new FileOutputStream(file);
-                fos.write(baf.toByteArray());
-                fos.flush();
-                fos.close();
-            } catch (Exception e) {
-                Log.e("error", "new image");
-                //e.printStackTrace();
-                return null;
-            }
-
-
-            return null;
+            pdg = ProgressDialog.show(EditProfile.this, "", "Updating profile");
         }
 
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            // pdg.dismiss();
-            Log.e("done", "imagedownload");
-            iv.setImageResource(R.drawable.ic_launcher);
-            SharedPreferences pref = getSharedPreferences("troubles", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = pref.edit();
-            editor.putString("img_loc", tempLoc);
-            editor.commit();
+            pdg.dismiss();
+        }
 
-            Bitmap bitmap = BitmapFactory.decodeFile(tempLoc);
-            iv.setImageBitmap(bitmap);
+        @Override
+        protected String doInBackground(String... strings) {
+            String result = null;
+            //  retlocation = null;
+            ///add code for image
+            if (!path.equals(origPath)) {
+                File sourceFile = new File(path);
+                if (!sourceFile.isFile()) {
+                    //pdg.dismiss();
+                    Log.e("app" + path, "" + path);
+                    Log.e("app", "error");
+                    return null;
+                }
+                Log.e("app", "success");
+
+                Bitmap bitmap = BitmapFactory.decodeFile(path);
+                Bitmap bmp = bitmap.createScaledBitmap(bitmap, 640, 480, true);
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                bmp.compress(Bitmap.CompressFormat.JPEG, 50, outputStream);
+                InputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
+
+                HttpClient httpclient = new DefaultHttpClient();
+                httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
+                HttpPost httppost = new HttpPost("https://blog-aagam.rhcloud.com/img_upload.php");
+                //File file = new File(filepath);
+                MultipartEntity mpEntity = new MultipartEntity();
+                // ContentBody cbFile = new FileBody(sourceFile, "image/jpg");
+                ContentBody cbFile = new InputStreamBody(inputStream, "" + pass);
+                mpEntity.addPart("userfile", cbFile);
+                httppost.setEntity(mpEntity);
+                try {
+                    HttpResponse response = httpclient.execute(httppost);
+
+                    HttpEntity resEntity = response.getEntity();
+
+                    // Log.e("resp", "" + EntityUtils.toString(resEntity));
+                    path = EntityUtils.toString(resEntity);
+                    Log.e("response", path);
+                    //Log.e("resp loc",""+resEntity.toString());
+                } catch (Exception e) {
+                    Log.e("resp", "exception in response");
+                    e.printStackTrace();
+                    return "";
+                }
+
+            } else {
+                path = "Default";
+            }
+            try {
+
+
+                //adding data
+                HttpClient client = new DefaultHttpClient();
+                HttpPost post = new HttpPost("https://blog-aagam.rhcloud.com/updateprofile.php");
+                List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+                pairs.add(new BasicNameValuePair("id",""+id));
+                pairs.add(new BasicNameValuePair("name", name));
+                pairs.add(new BasicNameValuePair("password", pass));
+                pairs.add(new BasicNameValuePair("emailid", mail));
+                pairs.add(new BasicNameValuePair("locality", locality));
+                //pairs.add(new BasicNameValuePair("phone", phones));
+                pairs.add(new BasicNameValuePair("imgloc", path));
+
+                post.setEntity(new UrlEncodedFormEntity(pairs));
+
+                HttpResponse response = client.execute(post);
+
+                result = EntityUtils.toString(response.getEntity());
+
+                Log.e("res", result);
+            } catch (Exception e) {
+                Log.e("res", "exce");
+                return null;
+            }
+
+            return result;
 
         }
     }
+
 }
 
