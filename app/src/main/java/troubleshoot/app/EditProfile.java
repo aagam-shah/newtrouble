@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -104,6 +105,23 @@ public class EditProfile extends Activity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             pdg.dismiss();
+
+
+            if(s.contains("not")||s.equals("")){
+                Toast.makeText(EditProfile.this,"error",Toast.LENGTH_SHORT).show();
+            }else{
+                SharedPreferences preferences = getSharedPreferences("troubles", Context.MODE_PRIVATE);
+
+                SharedPreferences.Editor editor = preferences.edit();
+
+                editor.putString("name", name);
+                editor.putString("locality",locality);
+                editor.putString("img_loc", path);
+                editor.putString("email",mail);
+                editor.commit();
+
+            }
+
         }
 
         @Override
@@ -176,6 +194,9 @@ public class EditProfile extends Activity {
                 result = EntityUtils.toString(response.getEntity());
 
                 Log.e("res", result);
+
+
+
             } catch (Exception e) {
                 Log.e("res", "exce");
                 return null;
