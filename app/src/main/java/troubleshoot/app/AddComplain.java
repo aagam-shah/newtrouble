@@ -176,6 +176,7 @@ public class AddComplain extends Fragment {
 //                Log.e("imagepath", fileUri.getPath());
 
             BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inSampleSize = 2;
             options.inJustDecodeBounds = false;
             options.inPreferredConfig = Bitmap.Config.RGB_565;
             options.inDither = true;
