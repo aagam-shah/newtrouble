@@ -67,8 +67,8 @@ public class LoginActivity extends Activity {
                 AlertDialog.Builder d = new AlertDialog.Builder(context);
                 d.setIcon(R.drawable.am_logo1);
                 d.setTitle("Forgot Password?");
-                d.setMessage("Enter your contact in the field below. The password details and further instructions will be sent to your registered email-id");
-               final EditText input = new EditText(context);
+                d.setMessage("Enter your contact no. in the field below. The password details and further instructions will be sent to your registered email-id");
+                final EditText input = new EditText(context);
                 d.setView(input);
                 d.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -142,7 +142,11 @@ public class LoginActivity extends Activity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+            if(s.contains("Mail sent!"))
             Toast.makeText(getApplicationContext(),"Please check your mail",Toast.LENGTH_SHORT).show();
+            else{
+                Toast.makeText(getApplicationContext(),"No registered phone no. found",Toast.LENGTH_SHORT).show();
+            }
         }
 
         @Override
@@ -156,12 +160,13 @@ public class LoginActivity extends Activity {
 
                 String response = EntityUtils.toString(resp.getEntity());
                 Log.e("response of conf",""+response);
+                return response;
             }
             catch (Exception e){
                 e.printStackTrace();
                 return "error";
             }
-                return null;
+               // return null;
         }
     }
 

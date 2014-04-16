@@ -66,6 +66,7 @@ public class AddComplain2 extends Fragment {
             "Isanpur", "Lambha", "Maninagar", "Kankaria", "Behrampura", "Dani Limda", "Ghodasar", "Indrapuri", "Khokhra", "Vatva", "Isanpur", "Stadium", "Sabarmati",
             "Vejalpur", "Jodhpur", "Bodakdev", "Thaltej", "Ghatlodia", "Ranip", "Kali", "Gota", "Satellite" };
     //central_zone+east_zone+west_zone+north_zone+south_zone+new_west_zone;
+    public String[] all_categories = {"Road", "Divider", "Footpath", "Manhole", "Drainage Lines", "Water Lines", "Thermoplast", "Paint", "Light", "Street Light", "Dump Site", "Garbage Collection", "Sanitation", "Waste", "Green Waste", "Plants on divider", "Tree Guard" };
     public EditText title, descr, addr;
     public Spinner category;
     public AutoCompleteTextView locality;
@@ -159,13 +160,17 @@ public class AddComplain2 extends Fragment {
             Log.e("app", "success");
 
             Log.e("original size: ", " " + sourceFile.length());
-            Bitmap bitmap = BitmapFactory.decodeFile(path);
+          //  Bitmap bmp = Bitmap.createScaledBitmap(bitmap, 640, 480, true);
+
+           Bitmap bmp =  decodeSampledBitmapFromResource(path, 640, 480);
 
 
-            Bitmap bmp = bitmap.createScaledBitmap(bitmap, 640, 480, true);
+
 
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             bmp.compress(Bitmap.CompressFormat.JPEG, 50, outputStream);
+            bmp.recycle();
+
             Log.e("rescale size: ", " " + outputStream.size());
             InputStream in = new ByteArrayInputStream(outputStream.toByteArray());
 
@@ -223,6 +228,45 @@ public class AddComplain2 extends Fragment {
             }
 
             return result;
+        }
+
+        public int calculateInSampleSize(
+                BitmapFactory.Options options, int reqWidth, int reqHeight) {
+            // Raw height and width of image
+            final int height = options.outHeight;
+            final int width = options.outWidth;
+            int inSampleSize = 1;
+
+            if (height > reqHeight || width > reqWidth) {
+
+                final int halfHeight = height / 2;
+                final int halfWidth = width / 2;
+
+                // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+                // height and width larger than the requested height and width.
+                while ((halfHeight / inSampleSize) > reqHeight
+                        && (halfWidth / inSampleSize) > reqWidth) {
+                    inSampleSize *= 2;
+                }
+            }
+
+            return inSampleSize;
+        }
+
+        public  Bitmap decodeSampledBitmapFromResource(String paths,
+                                                             int reqWidth, int reqHeight) {
+
+            // First decode with inJustDecodeBounds=true to check dimensions
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            //BitmapFactory.decodeResource(res, resId, options);
+            BitmapFactory.decodeFile(paths,options);
+            // Calculate inSampleSize
+            options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+            // Decode bitmap with inSampleSize set
+            options.inJustDecodeBounds = false;
+            return BitmapFactory.decodeFile(paths, options);
         }
 
         @Override
