@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="fill_parent"
+            android:background="@drawable/paper019">
 
     <LinearLayout
         android:orientation="vertical"
@@ -15,16 +16,15 @@
             android:hint="Enter Title"
             android:lines="1"
             android:imeOptions="actionNext"
-            android:layout_margin="6dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:padding="15dp"
+            android:background="#ffffff"
             android:id="@+id/title"/>
 
-        <AutoCompleteTextView
-            android:id="@+id/location"
-            android:hint="Enter the locality nearby"
-            android:layout_margin="4dp"
-            android:imeOptions="actionNext"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"/>
+
 
         <EditText
             android:layout_width="fill_parent"
@@ -32,7 +32,9 @@
             android:hint="Enter Description"
             android:lines="3"
             android:imeOptions="actionNext"
-            android:layout_margin="4dp"
+            android:layout_margin="5dp"
+            android:padding="15dp"
+            android:background="#ffffff"
             android:id="@+id/description"/>
 
         <EditText
@@ -41,12 +43,25 @@
             android:hint="Enter Address"
             android:lines="2"
             android:imeOptions="actionNext"
-            android:layout_margin="4dp"
+            android:layout_margin="5dp"
+            android:padding="15dp"
+            android:background="#ffffff"
             android:id="@+id/address"/>
+
+        <AutoCompleteTextView
+            android:id="@+id/location"
+            android:hint="Enter the locality nearby"
+            android:layout_margin="5dp"
+            android:padding="15dp"
+            android:background="#ffffff"
+            android:imeOptions="actionNext"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
 
         <Spinner
             android:id="@+id/category"
-            android:layout_margin="4dp"
+            android:layout_margin="5dp"
+            android:background="#ffffff"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"></Spinner>
 
@@ -55,7 +70,10 @@
             android:text="Submit"
             android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="20dp"
+           />
 
     </LinearLayout>
 </ScrollView>

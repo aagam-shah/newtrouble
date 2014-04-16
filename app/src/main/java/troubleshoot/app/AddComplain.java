@@ -120,6 +120,7 @@ public class AddComplain extends Fragment {
         // Create a media file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
                 Locale.getDefault()).format(new java.util.Date());
+
         File mediaFile;
         if (type == MEDIA_TYPE_IMAGE) {
             mediaFile = new File(mediaStorageDir.getPath() + File.separator
@@ -179,10 +180,10 @@ public class AddComplain extends Fragment {
 
             iv.setImageBitmap(bitmap1);
 
-           } else {
+        } else {
                 Log.e("else", "null");
                 return;
-            }
+        }
 
 
 

@@ -1,8 +1,10 @@
 package troubleshoot.app;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -11,6 +13,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -40,21 +43,26 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Vandit on 4/12/2014.
  */
 public class EditProfile extends Activity {
 
-
+    public Uri fileUri;
+    private static final String IMAGE_DIRECTORY_NAME = "TroubleShooter";
+    public static final int MEDIA_TYPE_IMAGE = 1;
     public EditText editname, editemail, editpass, editconfpass;
     public AutoCompleteTextView editlocality;
     public String name, locality, mail, pass,confpass;
     public Button buttondone;
     public ImageView profile_image;
     public SharedPreferences preferences;
+    public Context context = this;
     public int id;
     public String path = "";
     public String origPath;
@@ -98,16 +106,34 @@ public class EditProfile extends Activity {
         origPath = imgloc;
         Bitmap bitmap = BitmapFactory.decodeFile(imgloc);
         profile_image.setImageBitmap(bitmap);
+
+        //on click listener on imageview
         profile_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(
-                        Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(i, 153);
+
+                AlertDialog.Builder d= new AlertDialog.Builder(context);
+                d.setItems(R.array.select, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        if (which == 0) {
+                            Intent intent = new Intent(
+                                    Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(intent, 133);
+                        } else {
+                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
+                            intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+                            startActivityForResult(intent, 112);
+                        }
+                    }
+                });
+
+                d.show();
             }
         });
 
-
+        // on click listener on done button
         buttondone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -130,6 +156,8 @@ public class EditProfile extends Activity {
                             if (mail.matches(regexemail)) {
 
                                 new UpdateProfile().execute();
+                                Intent openprofile = new Intent(getApplicationContext(),Dashboard.class);
+                                startActivity(openprofile);
 
                             } else{
                                 Toast.makeText(getApplicationContext(), "Enter valid email", Toast.LENGTH_SHORT).show();
@@ -145,7 +173,7 @@ public class EditProfile extends Activity {
 
             }
         });
-    }
+   }
 
 
     @Override
@@ -161,6 +189,60 @@ public class EditProfile extends Activity {
 
             profile_image.setImageBitmap(bitmap);
         }
+        if (resultCode == Activity.RESULT_CANCELED) {
+            // user cancelled Image capture
+            Toast.makeText(getApplicationContext(),
+                    "User cancelled image capture", Toast.LENGTH_SHORT)
+                    .show();
+        }
+        if (requestCode == 103) {
+            //Uri selectedImageUri = data.getData();
+            //path = getPath(selectedImageUri);
+
+            Bitmap bitmap = BitmapFactory.decodeFile(path);
+
+            profile_image.setImageBitmap(bitmap);
+
+        }
+    }
+
+    public Uri getOutputMediaFileUri(int type) {
+        return Uri.fromFile(getOutputMediaFile(type));
+    }
+     //returning image / video
+
+    private  File getOutputMediaFile(int type) {
+
+        // External sdcard location
+        File mediaStorageDir = new File(
+                Environment
+                        .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+                IMAGE_DIRECTORY_NAME);
+
+        // Create the storage directory if it does not exist
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                Log.e(IMAGE_DIRECTORY_NAME, "Oops! Failed create "
+                        + IMAGE_DIRECTORY_NAME + " directory");
+                return null;
+            }
+        }
+        SharedPreferences preferences = getSharedPreferences("troubles", Context.MODE_PRIVATE);
+        // Create a media file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
+                Locale.getDefault()).format(new java.util.Date());
+
+        File mediaFile;
+        if (type == MEDIA_TYPE_IMAGE) {
+            mediaFile = new File(mediaStorageDir.getPath() + File.separator
+                    + "TS_"+preferences.getInt("id",0)+"_" + timeStamp + ".jpg");
+            path=mediaStorageDir.getPath() + File.separator
+                    + "TS_"+preferences.getInt("id",0)+"_" + timeStamp + ".jpg";
+        }  else {
+            return null;
+        }
+
+        return mediaFile;
     }
 
     public String getPath(Uri uri) {
@@ -196,7 +278,7 @@ public class EditProfile extends Activity {
                 editor.putString("locality", locality);
                 editor.putString("img_loc", path);
                 editor.putString("email", mail);
-
+                editor.putString("password",pass);
                 editor.commit();
 
             }

@@ -71,6 +71,7 @@ public class AddComplain2 extends Fragment {
     public AutoCompleteTextView locality;
     public Button submit;
     public Context ctx;
+    public String titletext, descrtext,addrtext, datetext, imgol, localitytext, categ;
     public String path;
     public DB db;
 
@@ -107,7 +108,19 @@ public class AddComplain2 extends Fragment {
                     Toast toast = Toast.makeText(getActivity(), "Network Unavailable.Please try again later.", Toast.LENGTH_SHORT);
                     toast.show();
                 } else {
-                    new Post().execute();
+                    titletext = title.getText().toString();
+                    descrtext = descr.getText().toString();
+                    addrtext = addr.getText().toString();
+                    localitytext = locality.getText().toString();
+                    categ = category.getSelectedItem().toString();
+                    Date d = new Date();
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    datetext = sdf.format(d);
+
+                    boolean check = checknull(titletext,descrtext,addrtext,localitytext);
+                    if(check) {
+                        new Post().execute();
+                    }
                 }
 
             }
@@ -119,21 +132,16 @@ public class AddComplain2 extends Fragment {
 
     public class Post extends AsyncTask<String, Long, String> {
         ProgressDialog pdg;
-        String titletext, descrtext, datetext, imgol, localitytext, categ;
+
         String retlocation = "";
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pdg = ProgressDialog.show(ctx, "", "Posting Complain");
-            pdg.setCanceledOnTouchOutside(true);
-            titletext = title.getText().toString();
-            descrtext = descr.getText().toString();
-            localitytext = locality.getText().toString();
-            categ = category.getSelectedItem().toString();
-            Date d = new Date();
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            datetext = sdf.format(d);
+
+
+                pdg = ProgressDialog.show(ctx, "", "Posting Complain");
+                pdg.setCanceledOnTouchOutside(true);
 
         }
 
@@ -251,4 +259,32 @@ public class AddComplain2 extends Fragment {
                 Toast.makeText(getActivity(), "Error posting complain", Toast.LENGTH_SHORT).show();
         }
     }
+    public boolean checknull(String title, String des, String addr,String area) {
+        boolean res = false;
+        if (title.matches("")) {
+            Toast.makeText(getActivity(), "Enter title", Toast.LENGTH_SHORT).show();
+            return res;
+        } else {
+            if (des.matches("")) {
+                Toast.makeText(getActivity(), "Enter description", Toast.LENGTH_SHORT).show();
+                return res;
+            } else {
+                if (addr.matches("")) {
+                    Toast.makeText(getActivity(), "Enter address", Toast.LENGTH_SHORT).show();
+                    return res;
+                } else {
+                    if (area.matches("")) {
+                        Toast.makeText(getActivity(), "Enter the area", Toast.LENGTH_SHORT).show();
+                        return res;
+                    } else {
+                        res = true;
+                        return res;
+                    }
+                }
+            }
+        }
+    }
+
+
+
 }
