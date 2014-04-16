@@ -223,6 +223,7 @@ public class LoginActivity extends Activity {
                     editor.putString("img_ol", loc);
                     editor.putString("phone", jsonObject.getString("phoneno"));
                     editor.putString("email", jsonObject.getString("emailid"));
+                    editor.putString("password", pass);
                     //adding champion month as 0
                     editor.putInt("champion_month", 0);
                     editor.putInt("champion_year", 0);
