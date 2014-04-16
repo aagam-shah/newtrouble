@@ -14,6 +14,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -47,14 +49,22 @@ import java.util.List;
 public class EditProfile extends Activity {
 
 
-    public EditText editname, editlocality, editemail, editpass, editconfpass;
-    public String name, locality, mail, pass;
-    public Button buttondone, buttonphoto;
+    public EditText editname, editemail, editpass, editconfpass;
+    public AutoCompleteTextView editlocality;
+    public String name, locality, mail, pass,confpass;
+    public Button buttondone;
     public ImageView profile_image;
     public SharedPreferences preferences;
     public int id;
     public String path = "";
     public String origPath;
+    public String[] area_array = { "Khadia", "Kalupur", "Dariyapur", "Shahpur", "Raykhad", "Jamalpur", "Dudheshwar", "Madhupura", "Girdharnagar",
+            "Rajpur", "Arbudanagar", "Odhav", "Vastral", "Mahavirnagar", "Bhaipura", "Amraiwadi", "Ramol", "Hathijan",
+            "Paldi", "Vasna", "Ambawadi", "Navrangpura", "Juna Vadaj", "Nava Vadaj", "Naranpura", "Stadium", "Sabarmati", "Chandkheda", "Motera", "Stadium", "Sabarmati",
+            "Saraspur", "Sardarnagar", "Noblenagar", "Naroda", "Kubernagar", "Saijpur", "Meghaninagar", "Asarva", "Naroda Road", "India Colony", "Krushnanagar", "Thakkarnagar", "Saraspur",
+            "Isanpur", "Lambha", "Maninagar", "Kankaria", "Behrampura", "Dani Limda", "Ghodasar", "Indrapuri", "Khokhra", "Vatva", "Isanpur", "Stadium", "Sabarmati",
+            "Vejalpur", "Jodhpur", "Bodakdev", "Thaltej", "Ghatlodia", "Ranip", "Kali", "Gota", "Satellite"
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,10 +74,15 @@ public class EditProfile extends Activity {
 
         editname = (EditText) findViewById(R.id.etname);
         editemail = (EditText) findViewById(R.id.ettextemail);
-        editlocality = (EditText) findViewById(R.id.ettextlocality);
+        editlocality = (AutoCompleteTextView) findViewById(R.id.ettextlocality);
+        ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(),android.R.layout.simple_list_item_1,area_array);
+        editlocality.setAdapter(adapter);
+        editlocality.setDropDownBackgroundResource(R.drawable.autcomplete);
         editpass = (EditText) findViewById(R.id.etnewpass);
         editconfpass = (EditText) findViewById(R.id.etconfpass);
         buttondone = (Button) findViewById(R.id.bchange);
+
+
 
 
         preferences = getSharedPreferences("troubles", Context.MODE_PRIVATE);
@@ -96,11 +111,38 @@ public class EditProfile extends Activity {
         buttondone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                String regexemail = ".+@.+\\..+";
                 name = editname.getText().toString();
                 mail = editemail.getText().toString();
                 locality = editlocality.getText().toString();
                 pass = editpass.getText().toString();
-                new UpdateProfile().execute();
+                confpass  = editconfpass.getText().toString();
+
+                boolean result = checknull(name,locality);
+                if(result){
+                    if(pass.length()==0){
+                       pass = preferences.getString("password","Default");
+                       confpass= pass;
+                    }
+                    if(pass.length()>4) {
+                        if (pass.matches(confpass)) {
+                            if (mail.matches(regexemail)) {
+
+                                new UpdateProfile().execute();
+
+                            } else{
+                                Toast.makeText(getApplicationContext(), "Enter valid email", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Password mismatch", Toast.LENGTH_SHORT).show();
+                        }
+                    }else{
+                            Toast.makeText(getApplicationContext(),"Password too short",Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+
             }
         });
     }
@@ -238,6 +280,22 @@ public class EditProfile extends Activity {
 
             return result;
 
+        }
+    }
+
+    public boolean checknull(String name, String area) {
+        boolean res = false;
+        if(name.matches("")) {
+            Toast.makeText(getApplicationContext(), "Enter the name", Toast.LENGTH_SHORT).show();
+            return res;
+        }else{
+            if(area.matches("")) {
+                Toast.makeText(getApplicationContext(), "Enter the area", Toast.LENGTH_SHORT).show();
+                return res;
+            }else {
+                res=true;
+                return res;
+            }
         }
     }
 
