@@ -25,7 +25,8 @@
 
         <activity
             android:name=".LoginActivity"
-            android:configChanges="orientation|screenLayout|keyboard|screenSize">
+            android:configChanges="orientation|screenLayout|keyboard|screenSize"
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -33,7 +34,7 @@
         </activity>
         <activity
             android:name=".Signup1"
-
+            android:windowSoftInputMode="stateHidden"
             android:configChanges="orientation|screenLayout|keyboard|screenSize">
 
         </activity>
@@ -43,6 +44,7 @@
             android:configChanges="orientation|screenLayout|keyboard|screenSize"/>
         <activity
             android:name=".EditProfile"
+            android:windowSoftInputMode="stateHidden"
             android:configChanges="orientation|screenLayout|keyboard|screenSize"/>
 
     </application>

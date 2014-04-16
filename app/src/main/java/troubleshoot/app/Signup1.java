@@ -16,13 +16,12 @@ public class Signup1 extends Activity {
     public Button cont;
     public EditText editphone, editpass,editconfpass, editemail, editname;
     public AutoCompleteTextView editloc;
-    public String[] area_array = {"Bapu Nagar", "Prahlad Nagar", "C.G.Road", "S.G. Road", "Navrangpura", "Vastrapur", "Ashram Road",
-            "Paldi", "Saraspur", "Satellite Area", "Sarangpur Darwaza", "Ambawadi", "Ellis Bridge", "Ghatlodia", "Gulbai Tekra",
-            "Gita Mandir Road", "Mem Nagar", "Naranpura",  "University Area", "Mithakhali Six Roads", "Vadaj", "Vasana", "Naroda",
-            "Narol", "Asarwa", "Meghani Nagar", "Ranip", "Bopal", "Sabarmati", "Shahibaug", "Astodia", "Dariapur", "Kadia",
-            "Kalupur", "Lal Darwaza", "Raipur", "Shahpur", "Dani Limbada", "Jamalpur", "Kankaria", "Khokra", "Mehmedabad",
-            "Odhav", "Maninagar", "Sanand", "Chandkheda", "Vijay Char Rasta", "Vejalpur", "Jivraj Park", "Shivaranjani",
-            "Nehru Park","Bodakdev","Judges Bunglow", "Others"
+    public String[] area_array = { "Khadia", "Kalupur", "Dariyapur", "Shahpur", "Raykhad", "Jamalpur", "Dudheshwar", "Madhupura", "Girdharnagar",
+            "Rajpur", "Arbudanagar", "Odhav", "Vastral", "Mahavirnagar", "Bhaipura", "Amraiwadi", "Ramol", "Hathijan",
+            "Paldi", "Vasna", "Ambawadi", "Navrangpura", "Juna Vadaj", "Nava Vadaj", "Naranpura", "Stadium", "Sabarmati", "Chandkheda", "Motera", "Stadium", "Sabarmati",
+            "Saraspur", "Sardarnagar", "Noblenagar", "Naroda", "Kubernagar", "Saijpur", "Meghaninagar", "Asarva", "Naroda Road", "India Colony", "Krushnanagar", "Thakkarnagar", "Saraspur",
+            "Isanpur", "Lambha", "Maninagar", "Kankaria", "Behrampura", "Dani Limda", "Ghodasar", "Indrapuri", "Khokhra", "Vatva", "Isanpur", "Stadium", "Sabarmati",
+            "Vejalpur", "Jodhpur", "Bodakdev", "Thaltej", "Ghatlodia", "Ranip", "Kali", "Gota", "Satellite"
     };
 
     @Override
