@@ -66,6 +66,7 @@ public class AddComplain2 extends Fragment {
             "Isanpur", "Lambha", "Maninagar", "Kankaria", "Behrampura", "Dani Limda", "Ghodasar", "Indrapuri", "Khokhra", "Vatva", "Isanpur", "Stadium", "Sabarmati",
             "Vejalpur", "Jodhpur", "Bodakdev", "Thaltej", "Ghatlodia", "Ranip", "Kali", "Gota", "Satellite" };
     //central_zone+east_zone+west_zone+north_zone+south_zone+new_west_zone;
+    public String[] all_categories = {"Road", "Divider", "Footpath", "Manhole", "Drainage Lines", "Water Lines", "Thermoplast", "Paint", "Light", "Street Light", "Dump Site", "Garbage Collection", "Sanitation", "Waste", "Green Waste", "Plants on divider", "Tree Guard" };
     public EditText title, descr, addr;
     public Spinner category;
     public AutoCompleteTextView locality;

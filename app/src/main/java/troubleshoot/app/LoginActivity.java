@@ -68,7 +68,7 @@ public class LoginActivity extends Activity {
                 d.setIcon(R.drawable.am_logo1);
                 d.setTitle("Forgot Password?");
                 d.setMessage("Enter your contact no. in the field below. The password details and further instructions will be sent to your registered email-id");
-               final EditText input = new EditText(context);
+                final EditText input = new EditText(context);
                 d.setView(input);
                 d.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
