@@ -143,7 +143,11 @@ public class LoginActivity extends Activity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+            if(s.contains("Mail sent!"))
             Toast.makeText(getApplicationContext(),"Please check your mail",Toast.LENGTH_SHORT).show();
+            else{
+                Toast.makeText(getApplicationContext(),"No registered phone no. found",Toast.LENGTH_SHORT).show();
+            }
         }
 
         @Override
@@ -157,12 +161,13 @@ public class LoginActivity extends Activity {
 
                 String response = EntityUtils.toString(resp.getEntity());
                 Log.e("response of conf",""+response);
+                return response;
             }
             catch (Exception e){
                 e.printStackTrace();
                 return "error";
             }
-                return null;
+               // return null;
         }
     }
 
