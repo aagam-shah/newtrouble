@@ -219,7 +219,7 @@ public class Signup2 extends Activity {
                 editor.putString("img_ol", "https://blog-aagam.rhcloud.com/" + retlocation);
                 editor.putString("phone", phones);
                 editor.putString("email", emails);
-		editor.putString("password", passws);
+		        editor.putString("password", passws);
                 //add champion feature
                 editor.putInt("champion_month", 0);
                 editor.putInt("champion_year", 0);
