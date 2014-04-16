@@ -135,7 +135,7 @@ public class AddComplain extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //Toast.makeText(getActivity(),""+data.getData().toString(),Toast.LENGTH_SHORT).show();
+
         if (resultCode != Activity.RESULT_OK) {
             return;
         } else if (resultCode == getActivity().RESULT_CANCELED) {
@@ -145,35 +145,6 @@ public class AddComplain extends Fragment {
                     .show();
         }
         else if (requestCode == 111) {
-
-            /*Uri selectedImageUri = data.getData();
-
-            String filePath = "";
-            imagepath = getPath(selectedImageUri);
-
-            if (imagepath != null) {
-                filePath = imagepath;
-        /*        File f = new File(filePath);
-                Log.e("orig size: "," "+f.length());*/
-//                Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath());
-//                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-//                bitmap.compress(Bitmap.CompressFormat.JPEG, 50, outputStream);
-//                Log.e("compressed size 50: ", " " + outputStream.size());
-//
-//                Bitmap bitmap1 = BitmapFactory.decodeFile(fileUri.getPath());
-//                ByteArrayOutputStream outputStream2 = new ByteArrayOutputStream();
-//                bitmap1.compress(Bitmap.CompressFormat.JPEG,40,outputStream2);
-//                Log.e("compressed size 40: "," "+outputStream2.size());
-//
-//                Bitmap bmp = bitmap.createScaledBitmap(bitmap,480,480,true);
-//                ByteArrayOutputStream outputStream1 = new ByteArrayOutputStream();
-//                bmp.compress(Bitmap.CompressFormat.JPEG,20,outputStream1);
-//
-//
-//                Log.e("rescale size: "," "+outputStream1.size());
-//                //bmp.recycle();
-//                bitmap.recycle();
-//                Log.e("imagepath", fileUri.getPath());
 
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inSampleSize = 2;
@@ -187,13 +158,8 @@ public class AddComplain extends Fragment {
                 return;
             }
 
-
-
-//            Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath());
-//            iv.setImageBitmap(bitmap);
             iv.setVisibility(View.VISIBLE);
             addDetails.setVisibility(View.VISIBLE);
-          //  Log.e("pathin 1", imagepath);
             Log.e("pathin 1", fileUri.getPath());
 
     }
