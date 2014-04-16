@@ -67,7 +67,7 @@ public class LoginActivity extends Activity {
                 AlertDialog.Builder d = new AlertDialog.Builder(context);
                 d.setIcon(R.drawable.am_logo1);
                 d.setTitle("Forgot Password?");
-                d.setMessage("Enter your contact in the field below. The password details and further instructions will be sent to your registered email-id");
+                d.setMessage("Enter your contact no. in the field below. The password details and further instructions will be sent to your registered email-id");
                final EditText input = new EditText(context);
                 d.setView(input);
                 d.setPositiveButton("OK", new DialogInterface.OnClickListener() {
