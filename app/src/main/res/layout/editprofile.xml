@@ -2,125 +2,162 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:fillViewport="false">
+        android:layout_height="fill_parent"
+        android:fillViewport="false"
+        android:background="@drawable/paper019">
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <RelativeLayout
+     <RelativeLayout
                 android:layout_width="fill_parent"
-                android:orientation="horizontal"
                 android:paddingLeft="4dp"
-                android:layout_height="wrap_content">
+                android:layout_height="fill_parent">
 
-                <TextView
+         <ImageView
+             android:id="@+id/profile"
+             android:layout_width="150dp"
+             android:layout_height="150dp"
+             android:scaleType="fitXY"
+             android:src="@drawable/honey"
+             android:layout_marginTop="20dp"
+             android:layout_marginBottom="10dp"
+             android:layout_centerHorizontal="true"/>
+
+         <TextView
                     android:text="Name"
                     android:textStyle="bold"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     android:id="@+id/tvname"
-                    android:paddingTop="14dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:paddingTop="4dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@+id/profile"/>
 
                 <EditText
                     android:id="@+id/etname"
                     android:text="Yo Yo Honey Singh"
                     android:textColor="#f00"
-                    android:paddingTop="4dp"
-                    android:maxLines="1"
-                    android:layout_below="@+id/tvname"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:textSize="18sp"
+
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="90dp"
+                    android:padding="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_alignBottom="@+id/tvname"
+                    android:layout_toRightOf="@+id/tvname"/>
 
 
 
-                <TextView
+         <TextView
                     android:id="@+id/tvlocality"
                     android:text="Locality"
                     android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:layout_below="@+id/etname"
-                    android:paddingTop="20dp"
+                    android:textSize="15sp"
+                    android:layout_below="@+id/tvname"
+                    android:paddingTop="4dp"
+                    android:layout_marginTop="20dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/tvname"/>
 
                 <AutoCompleteTextView
                     android:id="@+id/ettextlocality"
                     android:text="Navrangpura"
-                    android:layout_below="@+id/tvlocality"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textColor="#f00"
-                    android:maxLines="1"
-                    android:paddingTop="4dp"
-                    android:layout_width="wrap_content"
+
+                    android:layout_below="@+id/etname"
+                    android:layout_toRightOf="@+id/tvlocality"
+                    android:layout_alignBottom="@+id/tvlocality"
+                    android:layout_alignLeft="@+id/etname"
+                    android:padding="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"/>
 
-                <TextView
+         <TextView
                     android:id="@+id/tvemail"
                     android:text="Email-id"
                     android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:layout_below="@+id/ettextlocality"
-                    android:paddingTop="20dp"
+                    android:textSize="15sp"
+                    android:layout_below="@+id/tvlocality"
+                    android:paddingTop="4dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_alignLeft="@+id/tvname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
                 <EditText
                     android:id="@+id/ettextemail"
                     android:text="honeysingh@yoyo.com"
-                    android:layout_below="@+id/tvemail"
-                    android:textSize="20sp"
+                    android:layout_below="@+id/ettextlocality"
+                    android:layout_toRightOf="@id/tvemail"
+                    android:layout_alignBottom="@+id/tvemail"
+                    android:layout_alignLeft="@+id/etname"
+                    android:textSize="18sp"
                     android:textColor="#f00"
-                    android:paddingTop="4dp"
-                    android:maxLines="1"
-                    android:paddingBottom="15dp"
-                    android:layout_width="wrap_content"
+
+                    android:padding="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"/>
 
-                <TextView
+         <TextView
                     android:id="@+id/tvnewpass"
-                    android:text="New Password"
+                    android:text="New password"
                     android:textStyle="bold"
-                    android:maxLines="1"
-                    android:textSize="18sp"
-                    android:layout_below="@+id/ettextemail"
-                    android:paddingTop="20dp"
+                    android:textSize="15sp"
+                    android:layout_below="@+id/tvemail"
+                    android:layout_alignLeft="@+id/tvname"
+                    android:paddingTop="4dp"
+                    android:layout_marginTop="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
                 <EditText
                     android:id="@+id/etnewpass"
-                    android:layout_below="@+id/tvnewpass"
-                    android:textSize="20sp"
+                    android:layout_below="@+id/ettextemail"
+                    android:layout_toRightOf="@+id/tvnewpass"
+                    android:layout_alignBottom="@+id/tvnewpass"
+                    android:layout_alignLeft="@+id/etname"
+                    android:textSize="18sp"
                     android:textColor="#f00"
-                    android:maxLines="1"
-                    android:paddingTop="4dp"
-                    android:paddingBottom="15dp"
-                    android:layout_width="wrap_content"
+
+                    android:padding="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:hint="(optional)"/>
 
-                <TextView
+         <TextView
                     android:id="@+id/tvconfpass"
-                    android:text="Confirm Password"
+                    android:text="Confirm password"
                     android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:layout_below="@+id/etnewpass"
-                    android:paddingTop="20dp"
+                    android:textSize="15sp"
+                    android:layout_below="@+id/tvnewpass"
+                    android:layout_alignLeft="@+id/tvname"
+                    android:paddingTop="4dp"
+                    android:layout_marginTop="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
                 <EditText
                     android:id="@+id/etconfpass"
-                    android:layout_below="@+id/tvconfpass"
-                    android:textSize="20sp"
+                    android:layout_below="@+id/etnewpass"
+                    android:layout_toRightOf="@+id/tvconfpass"
+                    android:layout_alignBottom="@+id/tvconfpass"
+                    android:layout_alignLeft="@+id/etname"
+                    android:textSize="18sp"
                     android:textColor="#f00"
-                    android:paddingTop="4dp"
-                    android:paddingBottom="15dp"
-                    android:layout_width="wrap_content"
+
+                    android:padding="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"/>
 
                 <Button
@@ -129,19 +166,12 @@
                     android:id="@+id/bchange"
                     android:layout_below="@+id/etconfpass"
                     android:text="Done"
+                    style="@style/buttonStyle"
+                    android:layout_marginTop="30dp"
                     android:layout_centerHorizontal="true"/>
 
-                <ImageView
-                    android:id="@+id/profile_image"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_margin="14dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/honey"/>
-
-            </RelativeLayout>
 
 
-        </LinearLayout>
+
+</RelativeLayout>
 </ScrollView>

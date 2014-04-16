@@ -94,7 +94,7 @@ public class EditProfile extends Activity {
 
 
         preferences = getSharedPreferences("troubles", Context.MODE_PRIVATE);
-        profile_image = (ImageView) findViewById(R.id.profile_image);
+        profile_image = (ImageView) findViewById(R.id.profile);
 
         //putting default values
         editname.setText(preferences.getString("name", "Default"));

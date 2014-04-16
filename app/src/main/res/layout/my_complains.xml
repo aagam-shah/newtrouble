@@ -3,6 +3,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:id="@+id/my_complain_id"
+              android:background="@drawable/paper019"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 <ListView

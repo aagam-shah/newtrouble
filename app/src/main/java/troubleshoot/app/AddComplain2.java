@@ -120,6 +120,7 @@ public class AddComplain2 extends Fragment {
 
                     boolean check = checknull(titletext,descrtext,addrtext,localitytext);
                     if(check) {
+                        
                         new Post().execute();
                     }
                 }
