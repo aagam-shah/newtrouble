@@ -353,7 +353,7 @@ public class EditProfile extends Activity {
                 //File file = new File(filepath);
                 MultipartEntity mpEntity = new MultipartEntity();
                 // ContentBody cbFile = new FileBody(sourceFile, "image/jpg");
-                ContentBody cbFile = new InputStreamBody(inputStream, "" + pass);
+                ContentBody cbFile = new InputStreamBody(inputStream, "ID_champion" + id);
                 mpEntity.addPart("userfile", cbFile);
                 httppost.setEntity(mpEntity);
                 try {

@@ -152,6 +152,8 @@ public class AddComplain2 extends Fragment {
         protected String doInBackground(String[] objects) {
 
             File sourceFile = new File(path);
+            SharedPreferences preferences = getActivity().
+                    getSharedPreferences("troubles", Context.MODE_PRIVATE);
             if (!sourceFile.isFile()) {
                 //pdg.dismiss();
                 Toast.makeText(getActivity(), "Image not found.", Toast.LENGTH_SHORT).show();
@@ -182,8 +184,8 @@ public class AddComplain2 extends Fragment {
             MultipartEntity mpEntity = new MultipartEntity();
             //ContentBody cbFile = new FileBody(sourceFile, "image/jpg");
             Random r = new Random();
-
-            ContentBody cbFile = new InputStreamBody(in, "TS_" + r.nextInt(10000));
+            int id;
+            ContentBody cbFile = new InputStreamBody(in, preferences.getInt("id", -1)+"TS_" + r.nextInt(10000));
             mpEntity.addPart("userfile", cbFile);
             httppost.setEntity(mpEntity);
             try {
@@ -210,8 +212,7 @@ public class AddComplain2 extends Fragment {
             pairs.add(new BasicNameValuePair("locality", localitytext));
             pairs.add(new BasicNameValuePair("imageloc", retlocation));
             pairs.add(new BasicNameValuePair("category", categ));
-            SharedPreferences preferences = getActivity().
-                    getSharedPreferences("troubles", Context.MODE_PRIVATE);
+
             pairs.add(new BasicNameValuePair("userid", "" + preferences.getInt("id", -1)));
             pairs.add(new BasicNameValuePair("datetime", datetext));
             pairs.add(new BasicNameValuePair("username", preferences.getString("name", "TS")));
