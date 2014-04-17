@@ -278,7 +278,7 @@ public class Signup2 extends Activity {
             //File file = new File(filepath);
             MultipartEntity mpEntity = new MultipartEntity();
             // ContentBody cbFile = new FileBody(sourceFile, "image/jpg");
-            ContentBody cbFile = new InputStreamBody(inputStream, "" + phones);
+            ContentBody cbFile = new InputStreamBody(inputStream, "profile" + phones);
             mpEntity.addPart("userfile", cbFile);
             httppost.setEntity(mpEntity);
             try {
