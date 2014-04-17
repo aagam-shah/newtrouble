@@ -181,7 +181,7 @@ public class EditProfile extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != Activity.RESULT_OK)
             return;
-        if (requestCode == 153) {
+        if (requestCode == 133) {
             Uri selectedImageUri = data.getData();
             path = getPath(selectedImageUri);
 
@@ -195,7 +195,7 @@ public class EditProfile extends Activity {
                     "User cancelled image capture", Toast.LENGTH_SHORT)
                     .show();
         }
-        if (requestCode == 103) {
+        if (requestCode == 112) {
             //Uri selectedImageUri = data.getData();
             //path = getPath(selectedImageUri);
 

@@ -9,14 +9,9 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/am_logo"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="10dp"
-        android:layout_gravity="center_horizontal" />
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/trouble"
+        android:background="@drawable/ts"
+
+
         android:layout_gravity="center_horizontal" />
 
     <ImageButton
@@ -25,8 +20,8 @@
         android:layout_width="125dp"
         android:layout_height="125dp"
         android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/ic_launcher" />
+        android:layout_marginTop="10dp"
+        android:src="@drawable/honey" />
     
     <Button
         android:id="@+id/bsubmit"
