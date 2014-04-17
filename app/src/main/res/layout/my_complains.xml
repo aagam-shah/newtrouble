@@ -10,9 +10,10 @@
     <ImageView
         android:id="@android:id/empty"
         android:layout_width="fill_parent"
+        android:paddingRight="20dp"
         android:layout_height="fill_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/emptylist"
+        android:src="@drawable/nocomplaints"
         android:visibility="gone"/>
 
     <ListView
