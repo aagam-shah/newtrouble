@@ -52,7 +52,7 @@ import java.util.Random;
  */
 
 public class AddComplain2 extends Fragment {
-    public String[] categ_array = {"Wastage", "Roads", "Stray animals", "Cleanliness"};
+    //public String[] categ_array = {"Wastage", "Roads", "Stray animals", "Cleanliness"};
     public String[]  central_zone = { "Khadia", "Kalupur", "Dariyapur", "Shahpur", "Raykhad", "Jamalpur", "Dudheshwar", "Madhupura", "Girdharnagar"};
     public String[]  east_zone = { "Rajpur", "Arbudanagar", "Odhav", "Vastral", "Mahavirnagar", "Bhaipura", "Amraiwadi", "Ramol", "Hathijan"};
     public String[]  west_zone = { "Paldi", "Vasna", "Ambawadi", "Navrangpura", "Juna Vadaj", "Nava Vadaj", "Naranpura", "Stadium", "Sabarmati", "Chandkheda", "Motera", "Stadium", "Sabarmati"};
@@ -66,7 +66,7 @@ public class AddComplain2 extends Fragment {
             "Isanpur", "Lambha", "Maninagar", "Kankaria", "Behrampura", "Dani Limda", "Ghodasar", "Indrapuri", "Khokhra", "Vatva", "Isanpur", "Stadium", "Sabarmati",
             "Vejalpur", "Jodhpur", "Bodakdev", "Thaltej", "Ghatlodia", "Ranip", "Kali", "Gota", "Satellite" };
     //central_zone+east_zone+west_zone+north_zone+south_zone+new_west_zone;
-    public String[] all_categories = {"Road", "Divider", "Footpath", "Manhole", "Drainage Lines", "Water Lines", "Thermoplast", "Paint", "Light", "Street Light", "Dump Site", "Garbage Collection", "Sanitation", "Waste", "Green Waste", "Plants on divider", "Tree Guard" };
+    public String[] categ_array = {"Road", "Divider", "Footpath", "Manhole", "Drainage Lines", "Water Lines", "Thermoplast", "Paint", "Light", "Street Light", "Dump Site", "Garbage Collection", "Sanitation", "Waste", "Green Waste", "Plants on divider", "Tree Guard" };
     public EditText title, descr, addr;
     public Spinner category;
     public AutoCompleteTextView locality;
