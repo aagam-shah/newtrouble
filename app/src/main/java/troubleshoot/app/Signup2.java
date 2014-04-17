@@ -331,7 +331,7 @@ public class Signup2 extends Activity {
             super.onPostExecute(s);
             dialog.dismiss();
             Log.e("done", "" + s);
-            if (s != null || s.toLowerCase().equals("exist")) {
+            if (!(s == null || s.toLowerCase().equals("exist"))) {
                 SharedPreferences preferences = getSharedPreferences("troubles", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putInt("id", Integer.parseInt(s));
@@ -356,7 +356,7 @@ public class Signup2 extends Activity {
                 startActivity(i);
                 finish();
             } else {
-                if (s.equals("exist"))
+                if (s.toLowerCase().equals("exist"))
                     Toast.makeText(getApplicationContext(), "Phone number already exist", Toast.LENGTH_SHORT);
                 else
                     Toast.makeText(getApplicationContext(), "Error signing up", Toast.LENGTH_SHORT);
