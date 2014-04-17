@@ -3,9 +3,13 @@
 
     <string name="app_name">Trouble Shooter</string>
     <string name="title_section1">My Profile</string>
-    <string name="title_section2">My Complains</string>
+    <string name="title_section2">My Complaints</string>
     <string name="title_section3">Post Complain</string>
     <string name="title_section4">Champion</string>
     <string name="action_settings">Settings</string>
+    <string-array name="select">
+        <item>Choose from photos</item>
+        <item>Take photo</item>
+    </string-array>
 
 </resources>

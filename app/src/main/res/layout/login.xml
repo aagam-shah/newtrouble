@@ -10,26 +10,17 @@
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/am_logo"
+        android:background="@drawable/tsf"
         android:layout_gravity="center_horizontal" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/trouble"
-        android:layout_gravity="center_horizontal" />
-
-
 
     <EditText
         android:id="@+id/etcontact"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:padding="15dp"

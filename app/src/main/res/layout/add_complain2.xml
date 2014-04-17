@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="fill_parent"
+            android:background="@drawable/paper019">
+
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
 
 
         <EditText
@@ -15,24 +18,26 @@
             android:hint="Enter Title"
             android:lines="1"
             android:imeOptions="actionNext"
-            android:layout_margin="6dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:padding="15dp"
+            android:singleLine="true"
+            android:focusable="true"
             android:id="@+id/title"/>
 
-        <AutoCompleteTextView
-            android:id="@+id/location"
-            android:hint="Enter the locality nearby"
-            android:layout_margin="4dp"
-            android:imeOptions="actionNext"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"/>
+
 
         <EditText
+
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="Enter Description"
             android:lines="3"
             android:imeOptions="actionNext"
-            android:layout_margin="4dp"
+            android:layout_margin="5dp"
+            android:padding="15dp"
             android:id="@+id/description"/>
 
         <EditText
@@ -41,21 +46,41 @@
             android:hint="Enter Address"
             android:lines="2"
             android:imeOptions="actionNext"
-            android:layout_margin="4dp"
+            android:layout_margin="5dp"
+            android:padding="15dp"
             android:id="@+id/address"/>
+
+
+        <AutoCompleteTextView
+            android:id="@+id/location"
+            android:hint="Enter locality"
+            android:singleLine="true"
+            android:layout_margin="5dp"
+            android:padding="15dp"
+            android:imeOptions="actionNext"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
+
 
         <Spinner
             android:id="@+id/category"
-            android:layout_margin="4dp"
+            android:singleLine="true"
+            android:layout_margin="5dp"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"></Spinner>
+            android:layout_height="wrap_content"/>
+
+
 
         <Button
             android:id="@+id/submit"
             android:text="Submit"
+            style="@style/buttonStyle"
             android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="20dp"/>
+
 
     </LinearLayout>
 </ScrollView>

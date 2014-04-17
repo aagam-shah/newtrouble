@@ -2,7 +2,8 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:background="@drawable/paper019">
 
     <LinearLayout
         android:orientation="vertical"
@@ -13,10 +14,11 @@
 
         <ImageView
             android:id="@+id/champion_image"
-            android:layout_marginTop="7dp"
+            android:layout_marginTop="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/honey"/>
 
 
         <TextView
@@ -38,42 +40,24 @@
             android:textColor="#FF0000"
             android:textSize="20sp"
             android:layout_gravity="center_horizontal"/>
-        <!--<TextView-->
-        <!--android:text="Name:"-->
-        <!--android:paddingLeft="10dp"-->
-        <!--android:textColor="#FF0000"-->
-        <!--android:textStyle="bold"-->
-        <!--android:textSize="20sp"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"/>-->
-
-
-        <LinearLayout
-            android:id="@+id/no"
-            android:visibility="gone"
-            android:paddingTop="18dp"
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:text="No. of complains posted:"
+<!--
+        <TextView
+                android:text="Complaints posted:"
                 android:paddingLeft="10dp"
                 android:textColor="#FF0000"
-                android:textStyle="bold"
                 android:textSize="20sp"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"/>
 
-            <TextView
+        <TextView
                 android:id="@+id/champion_complains"
                 android:paddingLeft="10dp"
                 android:text="05"
                 android:textColor="#FF0000"
                 android:textSize="25sp"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"/>
-        </LinearLayout>
 
+-->
     </LinearLayout>
 </ScrollView>

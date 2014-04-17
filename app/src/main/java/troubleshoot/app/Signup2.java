@@ -1,8 +1,10 @@
 package troubleshoot.app;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -11,6 +13,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -38,14 +41,21 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class Signup2 extends Activity {
 
     public Button submit;
     public ImageButton imgbutton;
     public String emails, passws, phones, locals, names;
+    public Uri fileUri;
+    private static final String IMAGE_DIRECTORY_NAME = "TroubleShooter";
+    public static final int MEDIA_TYPE_IMAGE = 1;
+    public Context context = this;
+    public String path = "";
 
 
     @Override
@@ -63,9 +73,23 @@ public class Signup2 extends Activity {
         imgbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(
-                        Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(i, 133);
+                AlertDialog.Builder d= new AlertDialog.Builder(context);
+                d.setItems(R.array.select, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        if (which == 0) {
+                            Intent intent = new Intent(
+                                    Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(intent, 133);
+                        }else{
+                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
+                            intent.putExtra(MediaStore.EXTRA_OUTPUT,fileUri);
+                            startActivityForResult(intent, 112);
+                        }
+                    }
+                });
+                d.show();
             }
         });
 
@@ -93,19 +117,73 @@ public class Signup2 extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != Activity.RESULT_OK)
             return;
+        if (resultCode == Activity.RESULT_CANCELED) {
+            // user cancelled Image capture
+            Toast.makeText(getApplicationContext(),
+                    "User cancelled image capture", Toast.LENGTH_SHORT)
+                    .show();
+        }
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 2;
+        options.inJustDecodeBounds = false;
+        options.inPreferredConfig = Bitmap.Config.RGB_565;
+        options.inDither = true;
+
         if (requestCode == 133) {
             Uri selectedImageUri = data.getData();
             imagepath = getPath(selectedImageUri);
 
-            Bitmap bitmap = BitmapFactory.decodeFile(imagepath);
+            Bitmap bitmap = BitmapFactory.decodeFile(imagepath,options);
 
             imgbutton.setImageBitmap(bitmap);
             submit.setEnabled(true);
             Log.e("pathin 1", imagepath);
             Toast.makeText(getApplicationContext(), "path: " + imagepath, Toast.LENGTH_SHORT).show();
             //new Uploader(""+imagepath,getActivity()).execute();
-
         }
+        if(requestCode==112){
+            Bitmap bitmap = BitmapFactory.decodeFile(path,options);
+
+            imgbutton.setImageBitmap(bitmap);
+        }
+    }
+    public Uri getOutputMediaFileUri(int type) {
+        return Uri.fromFile(getOutputMediaFile(type));
+    }
+    //returning image / video
+
+    private  File getOutputMediaFile(int type) {
+
+        // External sdcard location
+        File mediaStorageDir = new File(
+                Environment
+                        .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+                IMAGE_DIRECTORY_NAME);
+
+        // Create the storage directory if it does not exist
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                Log.e(IMAGE_DIRECTORY_NAME, "Oops! Failed create "
+                        + IMAGE_DIRECTORY_NAME + " directory");
+                return null;
+            }
+        }
+        SharedPreferences preferences = getSharedPreferences("troubles", Context.MODE_PRIVATE);
+        // Create a media file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
+                Locale.getDefault()).format(new java.util.Date());
+
+        File mediaFile;
+        if (type == MEDIA_TYPE_IMAGE) {
+            mediaFile = new File(mediaStorageDir.getPath() + File.separator
+                    + "TS_"+preferences.getInt("id",0)+"_" + timeStamp + ".jpg");
+            path=mediaStorageDir.getPath() + File.separator
+                    + "TS_"+preferences.getInt("id",0)+"_" + timeStamp + ".jpg";
+        }  else {
+            return null;
+        }
+
+        return mediaFile;
     }
 
     public String getPath(Uri uri) {
@@ -127,6 +205,49 @@ public class Signup2 extends Activity {
             Log.e("pre", "yoo");
         }
 
+
+
+
+        public int calculateInSampleSize(
+                BitmapFactory.Options options, int reqWidth, int reqHeight) {
+            // Raw height and width of image
+            final int height = options.outHeight;
+            final int width = options.outWidth;
+            int inSampleSize = 1;
+
+            if (height > reqHeight || width > reqWidth) {
+
+                final int halfHeight = height / 2;
+                final int halfWidth = width / 2;
+
+                // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+                // height and width larger than the requested height and width.
+                while ((halfHeight / inSampleSize) > reqHeight
+                        && (halfWidth / inSampleSize) > reqWidth) {
+                    inSampleSize *= 2;
+                }
+            }
+
+            return inSampleSize;
+        }
+
+        public  Bitmap decodeSampledBitmapFromResource(String paths,
+                                                       int reqWidth, int reqHeight) {
+
+            // First decode with inJustDecodeBounds=true to check dimensions
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            //BitmapFactory.decodeResource(res, resId, options);
+            BitmapFactory.decodeFile(paths,options);
+            // Calculate inSampleSize
+            options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+            // Decode bitmap with inSampleSize set
+            options.inJustDecodeBounds = false;
+            return BitmapFactory.decodeFile(paths, options);
+        }
+
+
         public String retlocation;
 
         @Override
@@ -144,10 +265,11 @@ public class Signup2 extends Activity {
             }
             Log.e("app", "success");
 
-            Bitmap bitmap = BitmapFactory.decodeFile(imagepath);
-            Bitmap bmp = bitmap.createScaledBitmap(bitmap,640,480,true);
+           // Bitmap bitmap = BitmapFactory.decodeFile(imagepath);
+            Bitmap bmp = decodeSampledBitmapFromResource(imagepath,640,480);
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             bmp.compress(Bitmap.CompressFormat.JPEG, 50, outputStream);
+            bmp.recycle();
             InputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
 
             HttpClient httpclient = new DefaultHttpClient();
@@ -156,7 +278,7 @@ public class Signup2 extends Activity {
             //File file = new File(filepath);
             MultipartEntity mpEntity = new MultipartEntity();
             // ContentBody cbFile = new FileBody(sourceFile, "image/jpg");
-            ContentBody cbFile = new InputStreamBody(inputStream, "" + phones);
+            ContentBody cbFile = new InputStreamBody(inputStream, "profile" + phones);
             mpEntity.addPart("userfile", cbFile);
             httppost.setEntity(mpEntity);
             try {

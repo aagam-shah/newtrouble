@@ -74,10 +74,9 @@ public class LoginActivity extends Activity {
                     public void onClick(DialogInterface dialog, int which) {
                         String value = input.getText().toString();
                         ConnectionDetector detector = new ConnectionDetector(getApplicationContext());
-                        if(detector.isConnectingToInternet()){
+                        if(detector.isConnectingToInternet()) {
                             new ForgetPass(value).execute();
-                        }
-                        else{
+                        }else{
                             Toast.makeText(getApplicationContext(),"No connection"
                                     ,Toast.LENGTH_SHORT).show();
                         }

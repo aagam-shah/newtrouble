@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,11 +38,13 @@ import java.util.List;
  */
 public class MyComplainsFragment extends Fragment {
     public static ListView lv;
+    public ImageView emptyView;
     public ComplainAdapter adapter;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+
             case R.id.action_refresh:
                 Log.e("refresh", "action");
                 ConnectionDetector detector = new ConnectionDetector(getActivity());
@@ -62,6 +65,15 @@ public class MyComplainsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.my_complains, container, false);
         lv = (ListView) view.findViewById(R.id.complains_list);
+        emptyView = (ImageView)view.findViewById(android.R.id.empty);
+        lv.setEmptyView(emptyView);
+
+        emptyView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Dashboard.mViewPager.setCurrentItem(2);
+            }
+        });
         DB db = new DB(getActivity());
         Cursor c = db.getList();
         setHasOptionsMenu(true);
