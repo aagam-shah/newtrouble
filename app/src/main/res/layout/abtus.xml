@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/paper019"
+    android:weightSum="1">
+
+    <TextView
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Trouble Shooter is an app in associa- tion with Ahmedabad Mirror which help tackle civic problems happening around us."
+        android:id="@+id/textView"
+        android:layout_weight="0.17" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Version"
+        android:id="@+id/textView2"
+        android:layout_marginLeft="120dp"
+        android:textSize="20dp"
+        android:layout_gravity="center_horizontal" />
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text=" 1.0.0"
+        android:textColor="#FF0000"
+        android:id="@+id/textView3"
+        android:layout_marginLeft="0dp"
+        android:textSize="20dp"
+        android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+    <ImageView
+        android:layout_marginTop="0dp"
+        android:layout_width="214dp"
+        android:layout_height="176dp"
+        android:id="@+id/imageView"
+        android:src="@drawable/abu"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="318dp"
+        android:layout_height="33dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Contact no.:+(91)-79-67773421"
+        android:textSize="22dp"
+        android:id="@+id/textView4"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.14" />
+
+    <TextView
+        android:layout_width="321dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="www.ahmedabadmirror.com"
+        android:textSize="22dp"
+        android:id="@+id/textView5"
+        android:layout_weight="0.17" />
+</LinearLayout>
