@@ -185,7 +185,7 @@ public class AddComplain2 extends Fragment {
             //ContentBody cbFile = new FileBody(sourceFile, "image/jpg");
             Random r = new Random();
             int id;
-            ContentBody cbFile = new InputStreamBody(in, preferences.getInt("id", -1)+"TS_" + r.nextInt(10000));
+            ContentBody cbFile = new InputStreamBody(in, preferences.getInt("id", -1)+"TS_" + r.nextInt(10000)+".jpg");
             mpEntity.addPart("userfile", cbFile);
             httppost.setEntity(mpEntity);
             try {
