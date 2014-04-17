@@ -15,7 +15,6 @@
         android:text="Trouble Shooter is an app in associa- tion with Ahmedabad Mirror which help tackle civic problems happening around us."
         android:fontFamily="ayita"
         android:textSize="22dp"
-        android:textColor=""
         android:id="@+id/textView"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.07" />
