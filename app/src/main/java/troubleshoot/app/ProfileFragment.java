@@ -27,6 +27,7 @@ import java.net.URLConnection;
 /**
  * Created by Aagam Shah on 25/3/14.
  */
+
 public class ProfileFragment extends Fragment {
 
     public TextView name, email, locality, phoneno;
@@ -54,7 +55,13 @@ public class ProfileFragment extends Fragment {
         if (imgloc.equals("Default")) {
             new ImageDownloader(profile_image, preferences.getString("img_ol", "Default")).execute();
         } else {
-            Bitmap bitmap = BitmapFactory.decodeFile(imgloc);
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inSampleSize = 2;
+            options.inJustDecodeBounds = false;
+            options.inPreferredConfig = Bitmap.Config.RGB_565;
+            options.inDither = true;
+
+            Bitmap bitmap = BitmapFactory.decodeFile(imgloc,options);
             profile_image.setImageBitmap(bitmap);
         }
 
