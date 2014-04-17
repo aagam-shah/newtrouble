@@ -123,11 +123,17 @@ public class Signup2 extends Activity {
                     "User cancelled image capture", Toast.LENGTH_SHORT)
                     .show();
         }
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 2;
+        options.inJustDecodeBounds = false;
+        options.inPreferredConfig = Bitmap.Config.RGB_565;
+        options.inDither = true;
+
         if (requestCode == 133) {
             Uri selectedImageUri = data.getData();
             imagepath = getPath(selectedImageUri);
 
-            Bitmap bitmap = BitmapFactory.decodeFile(imagepath);
+            Bitmap bitmap = BitmapFactory.decodeFile(imagepath,options);
 
             imgbutton.setImageBitmap(bitmap);
             submit.setEnabled(true);
@@ -136,7 +142,7 @@ public class Signup2 extends Activity {
             //new Uploader(""+imagepath,getActivity()).execute();
         }
         if(requestCode==112){
-            Bitmap bitmap = BitmapFactory.decodeFile(path);
+            Bitmap bitmap = BitmapFactory.decodeFile(path,options);
 
             imgbutton.setImageBitmap(bitmap);
         }

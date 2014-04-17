@@ -6,9 +6,18 @@
               android:background="@drawable/paper019"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-<ListView
-    android:id="@+id/complains_list"
-    android:divider="#ff000000"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"></ListView>
+
+    <ImageView
+        android:id="@android:id/empty"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/emptylist"
+        android:visibility="gone"/>
+
+    <ListView
+        android:id="@+id/complains_list"
+        android:divider="#ff000000"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"></ListView>
 </LinearLayout>
