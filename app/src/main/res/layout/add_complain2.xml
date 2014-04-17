@@ -23,6 +23,7 @@
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="5dp"
             android:padding="15dp"
+            android:singleLine="true"
             android:focusable="true"
             android:id="@+id/title"/>
 
@@ -52,7 +53,8 @@
 
         <AutoCompleteTextView
             android:id="@+id/location"
-            android:hint="Enter the locality nearby"
+            android:hint="Enter locality"
+            android:singleLine="true"
             android:layout_margin="5dp"
             android:padding="15dp"
             android:imeOptions="actionNext"
@@ -62,6 +64,7 @@
 
         <Spinner
             android:id="@+id/category"
+            android:singleLine="true"
             android:layout_margin="5dp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"/>

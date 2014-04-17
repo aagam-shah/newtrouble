@@ -18,23 +18,16 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/am_logo"
-            android:layout_marginTop="15dp"
+            android:background="@drawable/ts"
+
             android:layout_marginBottom="5dp"
             android:layout_gravity="center_horizontal" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/trouble"
-            android:layout_gravity="center_horizontal" />
-
 
         <EditText
             android:id="@+id/editname"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_marginBottom="5dp"
@@ -70,7 +63,7 @@
             android:layout_margin="5dp"
             android:background="#ffffff"
             android:padding="15dp"
-            android:hint="Password(more than 4 chars)"
+            android:hint="Password(min 5 chars)"
             android:inputType="textPassword"/>
 
         <EditText

@@ -37,7 +37,7 @@
                     android:text="Yo Yo Honey Singh"
                     android:textColor="#f00"
                     android:textSize="18sp"
-
+                    android:singleLine="true"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="90dp"
@@ -66,7 +66,7 @@
                     android:text="Navrangpura"
                     android:textSize="18sp"
                     android:textColor="#f00"
-
+                    android:singleLine="true"
                     android:layout_below="@+id/etname"
                     android:layout_toRightOf="@+id/tvlocality"
                     android:layout_alignBottom="@+id/tvlocality"
@@ -98,7 +98,7 @@
                     android:layout_alignLeft="@+id/etname"
                     android:textSize="18sp"
                     android:textColor="#f00"
-
+                    android:singleLine="true"
                     android:padding="5dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="5dp"
@@ -125,7 +125,7 @@
                     android:layout_alignLeft="@+id/etname"
                     android:textSize="18sp"
                     android:textColor="#f00"
-
+                    android:singleLine="true"
                     android:padding="5dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="5dp"
@@ -153,7 +153,7 @@
                     android:layout_alignLeft="@+id/etname"
                     android:textSize="18sp"
                     android:textColor="#f00"
-
+                    android:singleLine="true"
                     android:padding="5dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="5dp"
