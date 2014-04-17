@@ -1,32 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:background="@drawable/paper019">
-    <Button
-        android:id="@+id/sel_image"
-        android:text="Select Image"
-        style="@style/buttonStyle"
-        android:layout_marginLeft="7dp"
-        android:layout_marginTop="7dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
 
     <ImageView
-        android:layout_below="@+id/sel_image"
+        android:layout_margin="15dp"
         android:id="@+id/sel_imagev"
+        android:layout_below="@+id/addDetails"
         android:src="@drawable/sel"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"/>
+        android:layout_height="wrap_content"/>
 
     <Button
         android:id="@+id/addDetails"
         android:text="Add Details"
-        android:layout_marginRight="7dp"
-        android:layout_marginTop="7dp"
         style="@style/buttonStyle"
-        android:layout_alignParentRight="true"
+        android:layout_marginTop="5dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true" />
+
 
 </RelativeLayout>

@@ -40,11 +40,11 @@ public class AddComplain extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.add_complain, container, false);
-        addDetails = (Button) view.findViewById(R.id.addDetails);
-        Button click = (Button) view.findViewById(R.id.sel_image);
+       addDetails = (Button) view.findViewById(R.id.addDetails);
+        //Button click = (Button) view.findViewById(R.id.sel_image);
         iv = (ImageView) view.findViewById(R.id.sel_imagev);
         //   iv.setVisibility(View.INVISIBLE);
-        addDetails.setVisibility(View.INVISIBLE);
+       addDetails.setVisibility(View.INVISIBLE);
         iv.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
@@ -55,9 +55,20 @@ public class AddComplain extends Fragment {
             }
         });
 
+    iv.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        Intent it = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
+        it.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+        startActivityForResult(it, 111);
+    }
+    });
         addDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 FragmentTransaction trans = getFragmentManager()
                         .beginTransaction();
                 AddComplain2 adc2 = new AddComplain2();
@@ -70,22 +81,12 @@ public class AddComplain extends Fragment {
                 trans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 trans.addToBackStack(null);
                 trans.commit();
+
+
             }
         });
 
-        click.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-                Intent it = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
-                it.putExtra(MediaStore.EXTRA_OUTPUT,fileUri);
-                startActivityForResult(it, 111);
-            }
-        });
-
-        return view;
+       return view;
     }
 
     public String imagepath;
