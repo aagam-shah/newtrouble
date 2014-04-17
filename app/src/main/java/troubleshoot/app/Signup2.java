@@ -143,7 +143,7 @@ public class Signup2 extends Activity {
         }
         if(requestCode==112){
             Bitmap bitmap = BitmapFactory.decodeFile(path,options);
-
+            submit.setEnabled(true);
             imgbutton.setImageBitmap(bitmap);
         }
     }
