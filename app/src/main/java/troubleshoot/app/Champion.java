@@ -87,9 +87,9 @@ public class Champion extends Fragment {
 
 
                     Bitmap bm = BitmapFactory.decodeFile(champion_local);
-                    Bitmap resized = Bitmap.createScaledBitmap(bm, 200, 200, true);
+                    Bitmap resized = Bitmap.createScaledBitmap(bm, 400, 400, true);
                     bm.recycle();
-                    Bitmap conv_bm = getRoundedRectBitmap(resized, 200);
+                    Bitmap conv_bm = getRoundedRectBitmap(resized, 400);
                     resized.recycle();
                     imageView.setImageBitmap(conv_bm);
                     if(!name.equals("Default")){
@@ -124,17 +124,17 @@ public class Champion extends Fragment {
     public static Bitmap getRoundedRectBitmap(Bitmap bitmap, int pixels) {
         Bitmap result = null;
         try {
-            result = Bitmap.createBitmap(200, 200, Bitmap.Config.ARGB_8888);
+            result = Bitmap.createBitmap(400, 400, Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(result);
 
             int color = 0xff424242;
             Paint paint = new Paint();
-            Rect rect = new Rect(0, 0, 200, 200);
+            Rect rect = new Rect(0, 0, 400, 400);
 
             paint.setAntiAlias(true);
             canvas.drawARGB(0, 0, 0, 0);
             paint.setColor(color);
-            canvas.drawCircle(90, 90, 90, paint);
+            canvas.drawCircle(200, 200, 200, paint);
             paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
             canvas.drawBitmap(bitmap, rect, rect, paint);
 
@@ -246,9 +246,9 @@ public class Champion extends Fragment {
             Log.e("finish", "champion");
             if (!tempLoc.equals("")) {
                 Bitmap bm = BitmapFactory.decodeFile(tempLoc);
-                Bitmap resized = Bitmap.createScaledBitmap(bm, 200, 200, true);
+                Bitmap resized = Bitmap.createScaledBitmap(bm, 400, 400, true);
                 bm.recycle();
-                Bitmap conv_bm = getRoundedRectBitmap(resized, 200);
+                Bitmap conv_bm = getRoundedRectBitmap(resized, 400);
                 resized.recycle();
                 imageView.setImageBitmap(conv_bm);
                 champion_name.setText(username);
