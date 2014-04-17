@@ -142,6 +142,8 @@ public class Signup2 extends Activity {
             //new Uploader(""+imagepath,getActivity()).execute();
         }
         if(requestCode==112){
+
+            imagepath=path;
             Bitmap bitmap = BitmapFactory.decodeFile(path,options);
             submit.setEnabled(true);
             imgbutton.setImageBitmap(bitmap);
@@ -356,10 +358,11 @@ public class Signup2 extends Activity {
                 startActivity(i);
                 finish();
             } else {
+                
                 if (s.toLowerCase().equals("exist"))
-                    Toast.makeText(getApplicationContext(), "Phone number already exist", Toast.LENGTH_SHORT);
+                    Toast.makeText(Signup2.this, "Phone number already exist", Toast.LENGTH_SHORT);
                 else
-                    Toast.makeText(getApplicationContext(), "Error signing up", Toast.LENGTH_SHORT);
+                    Toast.makeText(Signup2.this, "Error signing up", Toast.LENGTH_SHORT);
             }
 
         }
