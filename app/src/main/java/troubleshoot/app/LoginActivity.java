@@ -142,7 +142,7 @@ public class LoginActivity extends Activity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            if(s.contains("Mail sent!"))
+            if(s.contains("sent!"))
             Toast.makeText(getApplicationContext(),"Please check your mail",Toast.LENGTH_SHORT).show();
             else{
                 Toast.makeText(getApplicationContext(),"No registered phone no. found",Toast.LENGTH_SHORT).show();
