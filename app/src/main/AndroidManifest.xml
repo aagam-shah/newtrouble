@@ -39,6 +39,10 @@
 
         </activity>
         <activity
+            android:name=".Abt_us"
+
+            android:configChanges="orientation|screenLayout|keyboard|screenSize"/>
+        <activity
             android:name=".Signup2"
 
             android:configChanges="orientation|screenLayout|keyboard|screenSize"/>

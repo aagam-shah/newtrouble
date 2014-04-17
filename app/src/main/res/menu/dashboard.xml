@@ -8,6 +8,12 @@
         android:title="Edit Profile"
         android:orderInCategory="100"
         app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_settings5"
+        android:title="abt_us"
+        android:orderInCategory="100"
+        app:showAsAction="never"/>
+
 
     <item
         android:id="@+id/action_settings"
