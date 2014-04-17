@@ -1,6 +1,8 @@
 package troubleshoot.app;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
@@ -21,5 +23,12 @@ public class Abt_us extends Activity {
         textView.setMovementMethod(LinkMovementMethod.getInstance());
         String text = "<a href='http://www.ahmedabadmirror.com'> www.ahmedabadmirror.com </a>";
         textView.setText(Html.fromHtml(text));
+
+
+
+        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        callIntent.setData(Uri.parse("tel:+" + textView.getText().toString().trim()));
+
+        startActivity(callIntent );
     }
 }

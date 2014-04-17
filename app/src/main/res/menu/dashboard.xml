@@ -10,7 +10,7 @@
         app:showAsAction="never"/>
     <item
         android:id="@+id/action_settings5"
-        android:title="abt_us"
+        android:title="About Us"
         android:orderInCategory="100"
         app:showAsAction="never"/>
 
