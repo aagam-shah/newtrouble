@@ -21,7 +21,7 @@
         android:layout_height="125dp"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:src="@drawable/honey" />
+        android:src="@drawable/load" />
     
     <Button
         android:id="@+id/bsubmit"
