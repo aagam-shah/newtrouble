@@ -252,6 +252,7 @@ public class Champion extends Fragment {
                 resized.recycle();
                 imageView.setImageBitmap(conv_bm);
                 champion_name.setText(username);
+                champion_locality.setText(locality);
                 champion_name.setVisibility(View.VISIBLE);
                 SharedPreferences pref = getActivity().getSharedPreferences("troubles", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
