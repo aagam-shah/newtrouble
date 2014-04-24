@@ -27,6 +27,7 @@ import java.util.Locale;
 /**
  * Created by Aagam Shah on 25/3/14.
  */
+
 public class AddComplain extends Fragment {
     public ImageView iv;
     public Button addDetails;
@@ -40,11 +41,11 @@ public class AddComplain extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.add_complain, container, false);
-       addDetails = (Button) view.findViewById(R.id.addDetails);
-        //Button click = (Button) view.findViewById(R.id.sel_image);
+        addDetails = (Button) view.findViewById(R.id.addDetails);
+
         iv = (ImageView) view.findViewById(R.id.sel_imagev);
-        //   iv.setVisibility(View.INVISIBLE);
-       addDetails.setVisibility(View.INVISIBLE);
+
+        addDetails.setVisibility(View.INVISIBLE);
         iv.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
@@ -55,24 +56,27 @@ public class AddComplain extends Fragment {
             }
         });
 
-    iv.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        Intent it = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
-        it.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-        startActivityForResult(it, 111);
-    }
-    });
+        iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
+                it.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+                startActivityForResult(it, 111);
+            }
+        });
         addDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                /* Set listener, so that when the add details button is clicked than
+                open the Complain 2 page */
 
                 FragmentTransaction trans = getFragmentManager()
                         .beginTransaction();
                 AddComplain2 adc2 = new AddComplain2();
 
+                /* Passing the path of the selected image */
                 Bundle b = new Bundle();
                 b.putString("path", fileUri.getPath());
                 adc2.setArguments(b);
@@ -86,25 +90,26 @@ public class AddComplain extends Fragment {
             }
         });
 
-       return view;
+        return view;
     }
-
-    public String imagepath;
 
     public Uri getOutputMediaFileUri(int type) {
         return Uri.fromFile(getOutputMediaFile(type));
     }
 
     /**
-     * returning image / video
+     * Generating a new Image and returning the file
+     * @param type Type of the image
+     * @return
      */
-    private  File getOutputMediaFile(int type) {
+    private File getOutputMediaFile(int type) {
 
         // External sdcard location
         File mediaStorageDir = new File(
                 Environment
                         .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-                IMAGE_DIRECTORY_NAME);
+                IMAGE_DIRECTORY_NAME
+        );
 
         // Create the storage directory if it does not exist
         if (!mediaStorageDir.exists()) {
@@ -123,16 +128,15 @@ public class AddComplain extends Fragment {
         File mediaFile;
         if (type == MEDIA_TYPE_IMAGE) {
             mediaFile = new File(mediaStorageDir.getPath() + File.separator
-                    + "TS_"+preferences.getInt("id",0)+"_" + timeStamp + ".jpg");
-            path=mediaStorageDir.getPath() + File.separator
-                    + "TS_"+preferences.getInt("id",0)+"_" + timeStamp + ".jpg";
-        }  else {
+                    + "TS_" + preferences.getInt("id", 0) + "_" + timeStamp + ".jpg");
+            path = mediaStorageDir.getPath() + File.separator
+                    + "TS_" + preferences.getInt("id", 0) + "_" + timeStamp + ".jpg";
+        } else {
             return null;
         }
 
         return mediaFile;
     }
-
 
 
     @Override
@@ -145,24 +149,23 @@ public class AddComplain extends Fragment {
             Toast.makeText(getActivity(),
                     "User cancelled image capture", Toast.LENGTH_SHORT)
                     .show();
-        }
-        else if (requestCode == 111) {
-
+        } else if (requestCode == 111) {
+            //The data returned from the camera activity
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inSampleSize = 2;
             options.inJustDecodeBounds = false;
             options.inPreferredConfig = Bitmap.Config.RGB_565;
             options.inDither = true;
-            iv.setImageBitmap(BitmapFactory.decodeFile(fileUri.getPath(),options));
+            iv.setImageBitmap(BitmapFactory.decodeFile(fileUri.getPath(), options));
 
         } else {
-                Log.e("else", "null");
-                return;
+            Log.e("else", "null");
+            return;
         }
 
-            iv.setVisibility(View.VISIBLE);
-            addDetails.setVisibility(View.VISIBLE);
-            Log.e("pathin 1", fileUri.getPath());
+        iv.setVisibility(View.VISIBLE);
+        addDetails.setVisibility(View.VISIBLE);
+        Log.e("pathin 1", fileUri.getPath());
 
     }
 

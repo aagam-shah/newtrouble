@@ -1,6 +1,5 @@
 package troubleshoot.app;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -45,46 +44,50 @@ import java.util.Date;
 public class Champion extends Fragment {
     public ImageView imageView;
     public int year, month, id;
-    public String champion_local,name,locality;
-    public TextView champion_name,champion_locality;
+    public String champion_local, name, locality;
+    public TextView champion_name, champion_locality;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_champion, container, false);
-        //new comment
         SharedPreferences pref = getActivity().getSharedPreferences("troubles", Context.MODE_PRIVATE);
         year = pref.getInt("champion_year", 0);
         month = pref.getInt("champion_month", 0);
         champion_local = pref.getString("champion_img", "Default");
-        name=pref.getString("champion_name","Default");
-        locality=pref.getString("champion_locality","Default");
+        name = pref.getString("champion_name", "Default");
+        locality = pref.getString("champion_locality", "Default");
         imageView = (ImageView) view.findViewById(R.id.champion_image);
-        champion_name=(TextView)view.findViewById(R.id.champion_name);
-        champion_locality=(TextView)view.findViewById(R.id.champion_locality);
+        champion_name = (TextView) view.findViewById(R.id.champion_name);
+        champion_locality = (TextView) view.findViewById(R.id.champion_locality);
         ConnectionDetector detector = new ConnectionDetector(getActivity());
         if (month == 0) {
-            //download latest champion
-            if(detector.isConnectingToInternet())
-            new ChampionDownloader().execute();
-            else{
-                Toast.makeText(getActivity(),"Can't connect to internet",Toast.LENGTH_SHORT).show();
+            //download latest champion after fresh install of the app
+            if (detector.isConnectingToInternet())
+                new ChampionDownloader().execute();
+            else {
+                Toast.makeText(getActivity(), "Can't connect to internet", Toast.LENGTH_SHORT).show();
             }
 
         } else {
             Date d = new Date();
             int curr_month = d.getMonth();
+
+            //The month in Android starts from 0.So increment month no by 1
             curr_month++;
+
             if (curr_month != month) {
                 //Download complains
-                if(detector.isConnectingToInternet())
+                if (detector.isConnectingToInternet())
                     new ChampionDownloader().execute();
-                else{
-                    Toast.makeText(getActivity(),"Can't connect to internet",Toast.LENGTH_SHORT).show();
+                else {
+                    Toast.makeText(getActivity(), "Can't connect to internet", Toast.LENGTH_SHORT).show();
                 }
             } else {
+                /**
+                 * If champion local image is not there, than need to fetch the image online
+                 */
                 if (!champion_local.equals("Default")) {
-
 
                     Bitmap bm = BitmapFactory.decodeFile(champion_local);
                     Bitmap resized = Bitmap.createScaledBitmap(bm, 400, 400, true);
@@ -92,23 +95,21 @@ public class Champion extends Fragment {
                     Bitmap conv_bm = getRoundedRectBitmap(resized, 400);
                     resized.recycle();
                     imageView.setImageBitmap(conv_bm);
-                    if(!name.equals("Default")){
+                    if (!name.equals("Default")) {
                         champion_name.setText(name);
                         champion_locality.setText(locality);
-                    }
-                    else{
-                        if(detector.isConnectingToInternet())
+                    } else {
+                        if (detector.isConnectingToInternet())
                             new ChampionDownloader().execute();
-                        else{
-                            Toast.makeText(getActivity(),"Can't connect to internet",Toast.LENGTH_SHORT).show();
+                        else {
+                            Toast.makeText(getActivity(), "Can't connect to internet", Toast.LENGTH_SHORT).show();
                         }
                     }
                 } else {
-                    //Download complains
-                    if(detector.isConnectingToInternet())
+                    if (detector.isConnectingToInternet())
                         new ChampionDownloader().execute();
-                    else{
-                        Toast.makeText(getActivity(),"Can't connect to internet",Toast.LENGTH_SHORT).show();
+                    else {
+                        Toast.makeText(getActivity(), "Can't connect to internet", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -121,6 +122,13 @@ public class Champion extends Fragment {
         super.onDestroy();
     }
 
+    /**
+     * Converts the image into circular shape
+     *
+     * @param bitmap Image to be curved
+     * @param pixels Dimensions of the image to be displayed
+     * @return A circular image with the pixels as its dimensions
+     */
     public static Bitmap getRoundedRectBitmap(Bitmap bitmap, int pixels) {
         Bitmap result = null;
         try {
@@ -146,26 +154,26 @@ public class Champion extends Fragment {
         return result;
     }
 
-
+    /**
+     * Class which downloads the latest champion in background
+     */
     class ChampionDownloader extends AsyncTask<String, String, String> {
         public String tempLoc = "";
-        public ProgressDialog pdg;
         public String userpic = "";
-        public String username="";
-        public String locality="";
-        public String month="";
+        public String username = "";
+        public String locality = "";
+        public String month = "";
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-           // pdg = ProgressDialog.show(getActivity(), "", "Fetching new champion");
-
         }
 
 
         @Override
         protected String doInBackground(String[] objects) {
-            //Download data and get Image
+
+            //Download data and get Image of the champion
             HttpClient client = new DefaultHttpClient();
             HttpPost post = new HttpPost("https://blog-aagam.rhcloud.com/champion_get.php");
 
@@ -191,6 +199,10 @@ public class Champion extends Fragment {
                 return null;
             }
 
+            /**
+             * After getting the information about the champion,download the image and store
+             * it to the file.
+             */
 
             File root = android.os.Environment.getExternalStorageDirectory();
 
@@ -242,7 +254,6 @@ public class Champion extends Fragment {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-           // pdg.dismiss();
             Log.e("finish", "champion");
             if (!tempLoc.equals("")) {
                 Bitmap bm = BitmapFactory.decodeFile(tempLoc);
@@ -254,12 +265,14 @@ public class Champion extends Fragment {
                 champion_name.setText(username);
                 champion_locality.setText(locality);
                 champion_name.setVisibility(View.VISIBLE);
+
+                //Saving the deails of new champion for showing everytime rather than downloading
                 SharedPreferences pref = getActivity().getSharedPreferences("troubles", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
-                editor.putString("champion_name",username);
-                editor.putString("champion_img",tempLoc);
-                editor.putString("champion_locality",locality);
-                editor.putInt("champion_month",Integer.parseInt(month));
+                editor.putString("champion_name", username);
+                editor.putString("champion_img", tempLoc);
+                editor.putString("champion_locality", locality);
+                editor.putInt("champion_month", Integer.parseInt(month));
                 editor.commit();
             } else {
                 champion_name.setVisibility(View.GONE);

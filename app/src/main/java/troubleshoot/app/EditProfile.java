@@ -50,6 +50,7 @@ import java.util.Locale;
 
 /**
  * Created by Vandit on 4/12/2014.
+ * Show the preloaded values of the profile and the ability to modify the profile and update it
  */
 public class EditProfile extends Activity {
 
@@ -58,7 +59,7 @@ public class EditProfile extends Activity {
     public static final int MEDIA_TYPE_IMAGE = 1;
     public EditText editname, editemail, editpass, editconfpass;
     public AutoCompleteTextView editlocality;
-    public String name, locality, mail, pass,confpass;
+    public String name, locality, mail, pass, confpass;
     public Button buttondone;
     public ImageView profile_image;
     public SharedPreferences preferences;
@@ -66,7 +67,7 @@ public class EditProfile extends Activity {
     public int id;
     public String path = "";
     public String origPath;
-    public String[] area_array = { "Khadia", "Kalupur", "Dariyapur", "Shahpur", "Raykhad", "Jamalpur", "Dudheshwar", "Madhupura", "Girdharnagar",
+    public String[] area_array = {"Khadia", "Kalupur", "Dariyapur", "Shahpur", "Raykhad", "Jamalpur", "Dudheshwar", "Madhupura", "Girdharnagar",
             "Rajpur", "Arbudanagar", "Odhav", "Vastral", "Mahavirnagar", "Bhaipura", "Amraiwadi", "Ramol", "Hathijan",
             "Paldi", "Vasna", "Ambawadi", "Navrangpura", "Juna Vadaj", "Nava Vadaj", "Naranpura", "Stadium", "Sabarmati", "Chandkheda", "Motera", "Stadium", "Sabarmati",
             "Saraspur", "Sardarnagar", "Noblenagar", "Naroda", "Kubernagar", "Saijpur", "Meghaninagar", "Asarva", "Naroda Road", "India Colony", "Krushnanagar", "Thakkarnagar", "Saraspur",
@@ -83,20 +84,16 @@ public class EditProfile extends Activity {
         editname = (EditText) findViewById(R.id.etname);
         editemail = (EditText) findViewById(R.id.ettextemail);
         editlocality = (AutoCompleteTextView) findViewById(R.id.ettextlocality);
-        ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(),android.R.layout.simple_list_item_1,area_array);
+        ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, area_array);
         editlocality.setAdapter(adapter);
         editlocality.setDropDownBackgroundResource(R.drawable.autcomplete);
         editpass = (EditText) findViewById(R.id.etnewpass);
         editconfpass = (EditText) findViewById(R.id.etconfpass);
         buttondone = (Button) findViewById(R.id.bchange);
-
-
-
-
         preferences = getSharedPreferences("troubles", Context.MODE_PRIVATE);
         profile_image = (ImageView) findViewById(R.id.profile);
 
-        //putting default values
+        //putting current values of the profile
         editname.setText(preferences.getString("name", "Default"));
         editemail.setText(preferences.getString("email", "Default"));
         editlocality.setText(preferences.getString("locality", "Default"));
@@ -107,12 +104,12 @@ public class EditProfile extends Activity {
         Bitmap bitmap = BitmapFactory.decodeFile(imgloc);
         profile_image.setImageBitmap(bitmap);
 
-        //on click listener on imageview
+        //on click listener on imageview, show the chooser dialog of camera & gallery
         profile_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                AlertDialog.Builder d= new AlertDialog.Builder(context);
+                AlertDialog.Builder d = new AlertDialog.Builder(context);
                 d.setItems(R.array.select, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
@@ -133,7 +130,7 @@ public class EditProfile extends Activity {
             }
         });
 
-        // on click listener on done button
+        // on click listener on done button,update the profile online also
         buttondone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -143,37 +140,37 @@ public class EditProfile extends Activity {
                 mail = editemail.getText().toString();
                 locality = editlocality.getText().toString();
                 pass = editpass.getText().toString();
-                confpass  = editconfpass.getText().toString();
+                confpass = editconfpass.getText().toString();
 
-                boolean result = checknull(name,locality);
-                if(result){
-                    if(pass.length()==0){
-                       pass = preferences.getString("password","Default");
-                       confpass= pass;
+                boolean result = checknull(name, locality);
+                if (result) {
+                    if (pass.length() == 0) {
+                        pass = preferences.getString("password", "Default");
+                        confpass = pass;
                     }
-                    if(pass.length()>4) {
+                    if (pass.length() > 4) {
                         if (pass.matches(confpass)) {
                             if (mail.matches(regexemail)) {
 
                                 new UpdateProfile().execute();
-                                Intent openprofile = new Intent(getApplicationContext(),Dashboard.class);
+                                Intent openprofile = new Intent(getApplicationContext(), Dashboard.class);
                                 startActivity(openprofile);
 
-                            } else{
+                            } else {
                                 Toast.makeText(getApplicationContext(), "Enter valid email", Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             Toast.makeText(getApplicationContext(), "Password mismatch", Toast.LENGTH_SHORT).show();
                         }
-                    }else{
-                            Toast.makeText(getApplicationContext(),"Password too short",Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Password too short", Toast.LENGTH_SHORT).show();
                     }
                 }
 
 
             }
         });
-   }
+    }
 
 
     @Override
@@ -209,15 +206,16 @@ public class EditProfile extends Activity {
     public Uri getOutputMediaFileUri(int type) {
         return Uri.fromFile(getOutputMediaFile(type));
     }
-     //returning image / video
 
-    private  File getOutputMediaFile(int type) {
+    //returning image / video
+    private File getOutputMediaFile(int type) {
 
         // External sdcard location
         File mediaStorageDir = new File(
                 Environment
                         .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-                IMAGE_DIRECTORY_NAME);
+                IMAGE_DIRECTORY_NAME
+        );
 
         // Create the storage directory if it does not exist
         if (!mediaStorageDir.exists()) {
@@ -235,15 +233,19 @@ public class EditProfile extends Activity {
         File mediaFile;
         if (type == MEDIA_TYPE_IMAGE) {
             mediaFile = new File(mediaStorageDir.getPath() + File.separator
-                    + "TS_"+preferences.getInt("id",0)+"_" + timeStamp + ".jpg");
-            path=mediaStorageDir.getPath() + File.separator
-                    + "TS_"+preferences.getInt("id",0)+"_" + timeStamp + ".jpg";
-        }  else {
+                    + "TS_" + preferences.getInt("id", 0) + "_" + timeStamp + ".jpg");
+            path = mediaStorageDir.getPath() + File.separator
+                    + "TS_" + preferences.getInt("id", 0) + "_" + timeStamp + ".jpg";
+        } else {
             return null;
         }
 
         return mediaFile;
     }
+
+    /**
+     * Get path of the image clicked or selected from the gallery
+     */
 
     public String getPath(Uri uri) {
         String[] projection = {MediaStore.Images.Media.DATA};
@@ -253,7 +255,9 @@ public class EditProfile extends Activity {
         return cursor.getString(column_index);
     }
 
-
+    /**
+     * Update the profile online also asynchronously
+     */
     class UpdateProfile extends AsyncTask<String, String, String> {
         public ProgressDialog pdg;
 
@@ -278,13 +282,21 @@ public class EditProfile extends Activity {
                 editor.putString("locality", locality);
                 editor.putString("img_loc", path);
                 editor.putString("email", mail);
-                editor.putString("password",pass);
+                editor.putString("password", pass);
                 editor.commit();
 
             }
 
         }
 
+        /**
+         * Adjust the sample size image according to the required width and height
+         *
+         * @param options   Various options for the BitMap factory
+         * @param reqWidth  Required width of the new Image
+         * @param reqHeight Required height of the new Image
+         * @return The appropriate sample size
+         */
 
         public int calculateInSampleSize(
                 BitmapFactory.Options options, int reqWidth, int reqHeight) {
@@ -309,14 +321,23 @@ public class EditProfile extends Activity {
             return inSampleSize;
         }
 
-        public  Bitmap decodeSampledBitmapFromResource(String paths,
-                                                       int reqWidth, int reqHeight) {
+        /**
+         * Sampling bitmap the native way results in MemoryOutOfBound. So this
+         * is optimal way to sample the image
+         *
+         * @param paths
+         * @param reqWidth
+         * @param reqHeight
+         * @return
+         */
+        public Bitmap decodeSampledBitmapFromResource(String paths,
+                                                      int reqWidth, int reqHeight) {
 
             // First decode with inJustDecodeBounds=true to check dimensions
             final BitmapFactory.Options options = new BitmapFactory.Options();
             options.inJustDecodeBounds = true;
             //BitmapFactory.decodeResource(res, resId, options);
-            BitmapFactory.decodeFile(paths,options);
+            BitmapFactory.decodeFile(paths, options);
             // Calculate inSampleSize
             options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
 
@@ -327,9 +348,8 @@ public class EditProfile extends Activity {
 
         @Override
         protected String doInBackground(String... strings) {
-            String result = "";
-            //  retlocation = null;
-            ///add code for image
+            String result;
+            //uploading image first and saving its returned location
             if (!path.equals(origPath)) {
                 File sourceFile = new File(path);
                 if (!sourceFile.isFile()) {
@@ -338,11 +358,11 @@ public class EditProfile extends Activity {
                     Log.e("app", "error");
                     return null;
                 }
-                Log.e("app", "success");
 
-                //Bitmap bitmap = BitmapFactory.decodeFile(path);
-                Bitmap bmp =decodeSampledBitmapFromResource(path, 640, 480);
+                //Scale the image to 640x480 resolution
+                Bitmap bmp = decodeSampledBitmapFromResource(path, 640, 480);
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                //Compress it by 50%
                 bmp.compress(Bitmap.CompressFormat.JPEG, 50, outputStream);
                 bmp.recycle();
                 InputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
@@ -350,9 +370,7 @@ public class EditProfile extends Activity {
                 HttpClient httpclient = new DefaultHttpClient();
                 httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
                 HttpPost httppost = new HttpPost("https://blog-aagam.rhcloud.com/img_upload.php");
-                //File file = new File(filepath);
                 MultipartEntity mpEntity = new MultipartEntity();
-                // ContentBody cbFile = new FileBody(sourceFile, "image/jpg");
                 ContentBody cbFile = new InputStreamBody(inputStream, "ID_champion" + id);
                 mpEntity.addPart("userfile", cbFile);
                 httppost.setEntity(mpEntity);
@@ -360,13 +378,9 @@ public class EditProfile extends Activity {
                     HttpResponse response = httpclient.execute(httppost);
 
                     HttpEntity resEntity = response.getEntity();
-
-                    // Log.e("resp", "" + EntityUtils.toString(resEntity));
+                    //Get the upload image location
                     result = EntityUtils.toString(resEntity);
-                    Log.e("response", result);
-                    //Log.e("resp loc",""+resEntity.toString());
                 } catch (Exception e) {
-                    Log.e("resp", "exception in response");
                     e.printStackTrace();
                     return "";
                 }
@@ -375,7 +389,7 @@ public class EditProfile extends Activity {
                 result = "Default";
             }
             try {
-                //adding data
+                //adding data of the modified profile to be update online
                 HttpClient client = new DefaultHttpClient();
                 HttpPost post = new HttpPost("https://blog-aagam.rhcloud.com/updateprofile.php");
                 List<NameValuePair> pairs = new ArrayList<NameValuePair>();
@@ -384,20 +398,11 @@ public class EditProfile extends Activity {
                 pairs.add(new BasicNameValuePair("password", pass));
                 pairs.add(new BasicNameValuePair("emailid", mail));
                 pairs.add(new BasicNameValuePair("locality", locality));
-                //pairs.add(new BasicNameValuePair("phone", phones));
                 pairs.add(new BasicNameValuePair("imgloc", result));
-
                 post.setEntity(new UrlEncodedFormEntity(pairs));
-
                 HttpResponse response = client.execute(post);
-
                 result = EntityUtils.toString(response.getEntity());
-
-                Log.e("res", result);
-
-
             } catch (Exception e) {
-                Log.e("res", "exce");
                 return null;
             }
 
@@ -406,17 +411,20 @@ public class EditProfile extends Activity {
         }
     }
 
+    /**
+     * Verify that the input data is not empty
+     */
     public boolean checknull(String name, String area) {
         boolean res = false;
-        if(name.matches("")) {
+        if (name.matches("")) {
             Toast.makeText(getApplicationContext(), "Enter the name", Toast.LENGTH_SHORT).show();
             return res;
-        }else{
-            if(area.matches("")) {
+        } else {
+            if (area.matches("")) {
                 Toast.makeText(getApplicationContext(), "Enter the area", Toast.LENGTH_SHORT).show();
                 return res;
-            }else {
-                res=true;
+            } else {
+                res = true;
                 return res;
             }
         }

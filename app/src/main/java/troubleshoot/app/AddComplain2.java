@@ -53,26 +53,26 @@ import java.util.Random;
 
 public class AddComplain2 extends Fragment {
     //public String[] categ_array = {"Wastage", "Roads", "Stray animals", "Cleanliness"};
-    public String[]  central_zone = { "Khadia", "Kalupur", "Dariyapur", "Shahpur", "Raykhad", "Jamalpur", "Dudheshwar", "Madhupura", "Girdharnagar"};
-    public String[]  east_zone = { "Rajpur", "Arbudanagar", "Odhav", "Vastral", "Mahavirnagar", "Bhaipura", "Amraiwadi", "Ramol", "Hathijan"};
-    public String[]  west_zone = { "Paldi", "Vasna", "Ambawadi", "Navrangpura", "Juna Vadaj", "Nava Vadaj", "Naranpura", "Stadium", "Sabarmati", "Chandkheda", "Motera", "Stadium", "Sabarmati"};
-    public String[]  north_zone = { "Saraspur", "Sardarnagar", "Noblenagar", "Naroda", "Kubernagar", "Saijpur", "Meghaninagar", "Asarva", "Naroda Road", "India Colony", "Krushnanagar", "Thakkarnagar", "Saraspur"};
-    public String[]  south_zone = { "Isanpur", "Lambha", "Maninagar", "Kankaria", "Behrampura", "Dani Limda", "Ghodasar", "Indrapuri", "Khokhra", "Vatva", "Isanpur", "Stadium", "Sabarmati"};
-    public String[]  new_west_zone = { "Vejalpur", "Jodhpur", "Bodakdev", "Thaltej", "Ghatlodia", "Ranip", "Kali", "Gota", "Satellite"};
-    public String[] all = { "Khadia", "Kalupur", "Dariyapur", "Shahpur", "Raykhad", "Jamalpur", "Dudheshwar", "Madhupura", "Girdharnagar",
+    public String[] central_zone = {"Khadia", "Kalupur", "Dariyapur", "Shahpur", "Raykhad", "Jamalpur", "Dudheshwar", "Madhupura", "Girdharnagar"};
+    public String[] east_zone = {"Rajpur", "Arbudanagar", "Odhav", "Vastral", "Mahavirnagar", "Bhaipura", "Amraiwadi", "Ramol", "Hathijan"};
+    public String[] west_zone = {"Paldi", "Vasna", "Ambawadi", "Navrangpura", "Juna Vadaj", "Nava Vadaj", "Naranpura", "Stadium", "Sabarmati", "Chandkheda", "Motera", "Stadium", "Sabarmati"};
+    public String[] north_zone = {"Saraspur", "Sardarnagar", "Noblenagar", "Naroda", "Kubernagar", "Saijpur", "Meghaninagar", "Asarva", "Naroda Road", "India Colony", "Krushnanagar", "Thakkarnagar", "Saraspur"};
+    public String[] south_zone = {"Isanpur", "Lambha", "Maninagar", "Kankaria", "Behrampura", "Dani Limda", "Ghodasar", "Indrapuri", "Khokhra", "Vatva", "Isanpur", "Stadium", "Sabarmati"};
+    public String[] new_west_zone = {"Vejalpur", "Jodhpur", "Bodakdev", "Thaltej", "Ghatlodia", "Ranip", "Kali", "Gota", "Satellite"};
+    public String[] all = {"Khadia", "Kalupur", "Dariyapur", "Shahpur", "Raykhad", "Jamalpur", "Dudheshwar", "Madhupura", "Girdharnagar",
             "Rajpur", "Arbudanagar", "Odhav", "Vastral", "Mahavirnagar", "Bhaipura", "Amraiwadi", "Ramol", "Hathijan",
             "Paldi", "Vasna", "Ambawadi", "Navrangpura", "Juna Vadaj", "Nava Vadaj", "Naranpura", "Stadium", "Sabarmati", "Chandkheda", "Motera", "Stadium", "Sabarmati",
             "Saraspur", "Sardarnagar", "Noblenagar", "Naroda", "Kubernagar", "Saijpur", "Meghaninagar", "Asarva", "Naroda Road", "India Colony", "Krushnanagar", "Thakkarnagar", "Saraspur",
             "Isanpur", "Lambha", "Maninagar", "Kankaria", "Behrampura", "Dani Limda", "Ghodasar", "Indrapuri", "Khokhra", "Vatva", "Isanpur", "Stadium", "Sabarmati",
-            "Vejalpur", "Jodhpur", "Bodakdev", "Thaltej", "Ghatlodia", "Ranip", "Kali", "Gota", "Satellite" };
+            "Vejalpur", "Jodhpur", "Bodakdev", "Thaltej", "Ghatlodia", "Ranip", "Kali", "Gota", "Satellite"};
     //central_zone+east_zone+west_zone+north_zone+south_zone+new_west_zone;
-    public String[] categ_array = {"Road", "Divider", "Footpath", "Manhole", "Drainage Lines", "Water Lines", "Thermoplast", "Paint", "Light", "Street Light", "Dump Site", "Garbage Collection", "Sanitation", "Waste", "Green Waste", "Plants on divider", "Tree Guard" };
+    public String[] categ_array = {"Road", "Divider", "Footpath", "Manhole", "Drainage Lines", "Water Lines", "Thermoplast", "Paint", "Light", "Street Light", "Dump Site", "Garbage Collection", "Sanitation", "Waste", "Green Waste", "Plants on divider", "Tree Guard"};
     public EditText title, descr, addr;
     public Spinner category;
     public AutoCompleteTextView locality;
     public Button submit;
     public Context ctx;
-    public String titletext, descrtext,addrtext, datetext, imgol, localitytext, categ;
+    public String titletext, descrtext, addrtext, datetext, imgol, localitytext, categ;
     public String path;
     public DB db;
 
@@ -118,8 +118,8 @@ public class AddComplain2 extends Fragment {
                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                     datetext = sdf.format(d);
 
-                    boolean check = checknull(titletext,descrtext,addrtext,localitytext);
-                    if(check) {
+                    boolean check = checknull(titletext, descrtext, addrtext, localitytext);
+                    if (check) {
 
 
                         new Post().execute();
@@ -142,9 +142,12 @@ public class AddComplain2 extends Fragment {
         protected void onPreExecute() {
             super.onPreExecute();
 
+            //Showing the dialg initially
+            pdg = ProgressDialog.show(ctx, "", "Posting Complain");
 
-                pdg = ProgressDialog.show(ctx, "", "Posting Complain");
-                pdg.setCanceledOnTouchOutside(true);
+            //If the complain takes too much time to upload
+            // than the user can cancel by touching out
+            pdg.setCanceledOnTouchOutside(true);
 
         }
 
@@ -155,37 +158,29 @@ public class AddComplain2 extends Fragment {
             SharedPreferences preferences = getActivity().
                     getSharedPreferences("troubles", Context.MODE_PRIVATE);
             if (!sourceFile.isFile()) {
-                //pdg.dismiss();
+
                 Toast.makeText(getActivity(), "Image not found.", Toast.LENGTH_SHORT).show();
-                Log.e("app" + path, "" + path);
-                Log.e("app", "error");
                 return null;
             }
-            Log.e("app", "success");
 
-            Log.e("original size: ", " " + sourceFile.length());
-          //  Bitmap bmp = Bitmap.createScaledBitmap(bitmap, 640, 480, true);
-
-           Bitmap bmp =  decodeSampledBitmapFromResource(path, 640, 480);
-
-
-
-
+            //Scale the image to 640x480 resolution
+            Bitmap bmp = decodeSampledBitmapFromResource(path, 640, 480);
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+            //Compress the newly scaled image to 50%
             bmp.compress(Bitmap.CompressFormat.JPEG, 50, outputStream);
             bmp.recycle();
 
-            Log.e("rescale size: ", " " + outputStream.size());
             InputStream in = new ByteArrayInputStream(outputStream.toByteArray());
+
+            //upload the image and get the upload image path
 
             HttpClient httpclient = new DefaultHttpClient();
             httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
             HttpPost httppost = new HttpPost("https://blog-aagam.rhcloud.com/img_upload.php");
             MultipartEntity mpEntity = new MultipartEntity();
-            //ContentBody cbFile = new FileBody(sourceFile, "image/jpg");
             Random r = new Random();
-            int id;
-            ContentBody cbFile = new InputStreamBody(in, preferences.getInt("id", -1)+"TS_" + r.nextInt(10000)+".jpg");
+            ContentBody cbFile = new InputStreamBody(in, preferences.getInt("id", -1) + "TS_" + r.nextInt(10000) + ".jpg");
             mpEntity.addPart("userfile", cbFile);
             httppost.setEntity(mpEntity);
             try {
@@ -193,7 +188,6 @@ public class AddComplain2 extends Fragment {
                 HttpEntity resEntity = response.getEntity();
                 retlocation = EntityUtils.toString(resEntity);
                 Log.e("response", retlocation);
-                //Log.e("resp loc",""+resEntity.toString());
             } catch (Exception e) {
                 Log.e("resp", "exception in response");
                 e.printStackTrace();
@@ -201,8 +195,7 @@ public class AddComplain2 extends Fragment {
             }
 
 
-            //upload data now
-
+            //upload data now since the image has been uploaded
             HttpClient client = new DefaultHttpClient();
             HttpPost post = new HttpPost("https://blog-aagam.rhcloud.com/complain_upload.php");
             List<NameValuePair> pairs = new ArrayList<NameValuePair>();
@@ -217,7 +210,6 @@ public class AddComplain2 extends Fragment {
             pairs.add(new BasicNameValuePair("datetime", datetext));
             pairs.add(new BasicNameValuePair("username", preferences.getString("name", "TS")));
             pairs.add(new BasicNameValuePair("status", "Pending"));
-            //pairs.add(new BasicNameValuePair("location",retlocation));
             String result;
             try {
                 post.setEntity(new UrlEncodedFormEntity(pairs));
@@ -233,6 +225,14 @@ public class AddComplain2 extends Fragment {
             return result;
         }
 
+        /**
+         * Adjust the sample size image according to the required width and height
+         *
+         * @param options   Various options for the BitMap factory
+         * @param reqWidth  Required width of the new Image
+         * @param reqHeight Required height of the new Image
+         * @return The appropriate sample size
+         */
         public int calculateInSampleSize(
                 BitmapFactory.Options options, int reqWidth, int reqHeight) {
             // Raw height and width of image
@@ -256,14 +256,23 @@ public class AddComplain2 extends Fragment {
             return inSampleSize;
         }
 
-        public  Bitmap decodeSampledBitmapFromResource(String paths,
-                                                             int reqWidth, int reqHeight) {
+        /**
+         * Sampling bitmap the native way results in MemoryOutOfBound. So this
+         * is optimal way to sample the image
+         *
+         * @param paths
+         * @param reqWidth
+         * @param reqHeight
+         * @return
+         */
+        public Bitmap decodeSampledBitmapFromResource(String paths,
+                                                      int reqWidth, int reqHeight) {
 
             // First decode with inJustDecodeBounds=true to check dimensions
             final BitmapFactory.Options options = new BitmapFactory.Options();
             options.inJustDecodeBounds = true;
             //BitmapFactory.decodeResource(res, resId, options);
-            BitmapFactory.decodeFile(paths,options);
+            BitmapFactory.decodeFile(paths, options);
             // Calculate inSampleSize
             options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
 
@@ -306,7 +315,17 @@ public class AddComplain2 extends Fragment {
                 Toast.makeText(getActivity(), "Error posting complain", Toast.LENGTH_SHORT).show();
         }
     }
-    public boolean checknull(String title, String des, String addr,String area) {
+
+    /**
+     * Verify that the data entered for the complain is not null
+     *
+     * @param title Title of the complain
+     * @param des   Description of the complain
+     * @param addr  Address of the complain
+     * @param area  Area of the complain
+     * @return Returns false if any one of them is empty
+     */
+    public boolean checknull(String title, String des, String addr, String area) {
         boolean res = false;
         if (title.matches("")) {
             Toast.makeText(getActivity(), "Enter title", Toast.LENGTH_SHORT).show();
@@ -331,7 +350,6 @@ public class AddComplain2 extends Fragment {
             }
         }
     }
-
 
 
 }

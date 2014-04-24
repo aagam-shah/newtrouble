@@ -31,6 +31,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The activity which handle the login of the app.
+ * Main functionalities:
+ * 1. Login
+ * 2. Forgot Password
+ */
 public class LoginActivity extends Activity {
 
     TextView phoneno, password;
@@ -58,8 +64,8 @@ public class LoginActivity extends Activity {
         register = (Button) findViewById(R.id.bregister);
         forgotpassword = (ImageButton) findViewById(R.id.ibforgotpass);
 
-// dialog for forgot password
-        forgotpassword.setOnClickListener(new View.OnClickListener(){
+        // dialog for forgot password
+        forgotpassword.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -74,11 +80,11 @@ public class LoginActivity extends Activity {
                     public void onClick(DialogInterface dialog, int which) {
                         String value = input.getText().toString();
                         ConnectionDetector detector = new ConnectionDetector(getApplicationContext());
-                        if(detector.isConnectingToInternet()) {
+                        if (detector.isConnectingToInternet()) {
                             new ForgetPass(value).execute();
-                        }else{
-                            Toast.makeText(getApplicationContext(),"No connection"
-                                    ,Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "No connection"
+                                    , Toast.LENGTH_SHORT).show();
                         }
                         // do something
                         // continue
@@ -128,10 +134,14 @@ public class LoginActivity extends Activity {
         });
     }
 
-    class ForgetPass extends AsyncTask<String,String,String>{
-        public String phoneno="";
-        public ForgetPass(String value){
-            phoneno=value;
+    /**
+     * Send the email to the phone number entered in the dialog box
+     */
+    class ForgetPass extends AsyncTask<String, String, String> {
+        public String phoneno = "";
+
+        public ForgetPass(String value) {
+            phoneno = value;
         }
 
         @Override
@@ -142,10 +152,10 @@ public class LoginActivity extends Activity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            if(s.contains("sent!"))
-            Toast.makeText(getApplicationContext(),"Please check your mail",Toast.LENGTH_SHORT).show();
-            else{
-                Toast.makeText(getApplicationContext(),"No registered phone no. found",Toast.LENGTH_SHORT).show();
+            if (s.contains("sent!"))
+                Toast.makeText(getApplicationContext(), "Please check your mail", Toast.LENGTH_SHORT).show();
+            else {
+                Toast.makeText(getApplicationContext(), "No registered phone no. found", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -153,23 +163,28 @@ public class LoginActivity extends Activity {
         protected String doInBackground(String... strings) {
             HttpClient client = new DefaultHttpClient();
             HttpPost post = new HttpPost("https://blog-aagam.rhcloud.com" +
-                    "/sendmail.php?phone="+phoneno);
+                    "/sendmail.php?phone=" + phoneno);
 
             try {
                 HttpResponse resp = client.execute(post);
 
                 String response = EntityUtils.toString(resp.getEntity());
-                Log.e("response of conf",""+response);
+                Log.e("response of conf", "" + response);
                 return response;
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 return "error";
             }
-               // return null;
+            // return null;
         }
     }
 
+    /**
+     * Check the credentials entered by the user online
+     * and save the details like the locality,email id locally in the app
+     * <p/>
+     * Create the Database. And initiate all the variables like champion
+     */
     class LoginExec extends AsyncTask<String, String, String> {
         public ProgressDialog pdg;
 
@@ -184,12 +199,8 @@ public class LoginActivity extends Activity {
             HttpClient client = new DefaultHttpClient();
             HttpPost post = new HttpPost("https://blog-aagam.rhcloud.com/signin.php");
             List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-
             pairs.add(new BasicNameValuePair("phone", phone));
             pairs.add(new BasicNameValuePair("pass", pass));
-
-            //pairs.add(new BasicNameValuePair("location",retlocation));
-
             String result = null;
             try {
                 post.setEntity(new UrlEncodedFormEntity(pairs));
@@ -210,17 +221,12 @@ public class LoginActivity extends Activity {
                     JSONObject jsonObject = new JSONObject(s);
 
                     Log.e("userid", jsonObject.getString("userid"));
-
-
                     SharedPreferences preferences = getSharedPreferences("troubles", Context.MODE_PRIVATE);
-
                     SharedPreferences.Editor editor = preferences.edit();
-
                     editor.putInt("id", Integer.parseInt(jsonObject.getString("userid")));
                     editor.putString("name", jsonObject.getString("name"));
                     editor.putString("locality", jsonObject.getString("locality"));
                     editor.putString("img_loc", "Default");
-
                     String loc = jsonObject.getString("profilepic");
                     loc = "https://blog-aagam.rhcloud.com/" + loc;
                     Log.e("done json", "" + loc);
@@ -228,27 +234,22 @@ public class LoginActivity extends Activity {
                     editor.putString("phone", jsonObject.getString("phoneno"));
                     editor.putString("email", jsonObject.getString("emailid"));
                     editor.putString("password", pass);
-                    //adding champion month as 0
                     editor.putInt("champion_month", 0);
                     editor.putInt("champion_year", 0);
                     editor.putString("champion_name", "Default");
-
                     editor.commit();
                     DB db = new DB(getApplicationContext());
                     db.drop();
                     db.close();
-
                     Intent dashboardactivity = new Intent(getApplicationContext(),
                             Dashboard.class);
                     startActivity(dashboardactivity);
                     finish();
                 } catch (Exception e) {
-                    Log.e("json", "error " + s);
                     Toast.makeText(getApplicationContext(), "Wrong Credentials", Toast.LENGTH_SHORT).show();
                 }
 
             } else {
-                Log.e("return error", "" + s);
                 Toast.makeText(getApplicationContext(), "Wrong Credentials", Toast.LENGTH_SHORT).show();
             }
 

@@ -124,7 +124,7 @@ public class Dashboard extends ActionBarActivity implements ActionBar.TabListene
                 return true;
         }else if(id==R.id.action_settings5){
 
-            Intent intent = new Intent(getApplicationContext(),Abt_us.class);
+            Intent intent = new Intent(getApplicationContext(),AboutUs.class);
             startActivity(intent);
             return true;
         }

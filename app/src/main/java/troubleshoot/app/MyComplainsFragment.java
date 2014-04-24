@@ -35,6 +35,7 @@ import java.util.List;
 
 /**
  * Created by Aagam Shah on 25/3/14.
+ * Show the list of all the complains of the user logged in
  */
 public class MyComplainsFragment extends Fragment {
     public static ListView lv;
@@ -65,7 +66,9 @@ public class MyComplainsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.my_complains, container, false);
         lv = (ListView) view.findViewById(R.id.complains_list);
-        emptyView = (ImageView)view.findViewById(android.R.id.empty);
+        emptyView = (ImageView) view.findViewById(android.R.id.empty);
+
+        //Show the empty view when there are no complains
         lv.setEmptyView(emptyView);
 
         emptyView.setOnClickListener(new View.OnClickListener() {
@@ -75,6 +78,8 @@ public class MyComplainsFragment extends Fragment {
             }
         });
         DB db = new DB(getActivity());
+
+        //Get all the complains stored in the database locally
         Cursor c = db.getList();
         setHasOptionsMenu(true);
         adapter = new ComplainAdapter(getActivity(), R.layout.complain_item,
@@ -101,10 +106,6 @@ public class MyComplainsFragment extends Fragment {
 
                 TextView tv = (TextView) view.findViewById(R.id.item_hidden);
                 TextView tv1 = (TextView) view.findViewById(R.id.item_title);
-                Log.e("i", "" + i);
-                Log.e("l", "" + l);
-                Log.e("hide", "" + tv.getText().toString());
-                Log.e("titl", "" + tv1.getText().toString());
             }
         });
 
@@ -115,7 +116,7 @@ public class MyComplainsFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        Log.e("MYCOMPL", "RESUME");
+        //When resuming the activity,get the list again if there has been some change
         Cursor c = new DB(getActivity()).getList();
         // db.close();
         adapter = new ComplainAdapter(getActivity(), R.layout.complain_item,
@@ -137,6 +138,9 @@ public class MyComplainsFragment extends Fragment {
     }
 
 
+    /**
+     * Download all the complains of the user online and store it in the database
+     */
     public class DownloadAll extends AsyncTask<String, String, String> {
         String result = "";
 
@@ -149,15 +153,10 @@ public class MyComplainsFragment extends Fragment {
                 HttpPost httpPost = new HttpPost(
                         "https://blog-aagam.rhcloud.com/getmycomplains.php");
                 List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-
-                // pairs.add(new BasicNameValuePair("userid", "" + preferences.getInt("id", 0)));
                 pairs.add(new BasicNameValuePair("userid", "" + preferences.getInt("id", 0)));
                 httpPost.setEntity(new UrlEncodedFormEntity(pairs));
-
                 HttpResponse response = httpClient.execute(httpPost);
-
                 result = EntityUtils.toString(response.getEntity());
-
             } catch (Exception e) {
                 Log.e("error", "fetching all");
             }
@@ -167,8 +166,6 @@ public class MyComplainsFragment extends Fragment {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-
-            Log.e("mycom", "" + s);
             try {
                 JSONArray array = new JSONArray(s);
                 DB db = new DB(getActivity());
@@ -183,29 +180,29 @@ public class MyComplainsFragment extends Fragment {
                     values.put("img_ol", "https://blog-aagam.rhcloud.com/" + jsonObject.getString("imageloc"));
                     values.put("status", jsonObject.getString("status"));
                     values.put("datecreated", jsonObject.getString("datetime"));
-
                     db.addORinsert(values, Integer.parseInt(jsonObject.getString("complainid")));
-
                 }
                 db.close();
+                Cursor c = new DB(getActivity()).getList();
+                adapter = new ComplainAdapter(getActivity(), R.layout.complain_item,
+                        c, new String[]{"_id", "title", "status", "datecreated"},
+                        new int[]{R.id.item_hidden, R.id.item_title, R.id.item_status
+                                , R.id.item_date}
+                );
 
-            Cursor c = new DB(getActivity()).getList();
-            // db.close();
-            adapter = new ComplainAdapter(getActivity(), R.layout.complain_item,
-                    c, new String[]{"_id", "title", "status", "datecreated"},
-                    new int[]{R.id.item_hidden, R.id.item_title, R.id.item_status
-                            , R.id.item_date}
-            );
-            lv.setAdapter(adapter);
+                //Update the list with the new complains added in the local database
+                lv.setAdapter(adapter);
 
-            new DownloadAdminComplains().execute();
+                new DownloadAdminComplains().execute();
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.e("error", "yoo");
             }
         }
     }
 
+    /**
+     * Download the information of the complains that are approved
+     */
     class DownloadAdminComplains extends AsyncTask<String, String, String> {
 
         String result = "";
@@ -234,11 +231,12 @@ public class MyComplainsFragment extends Fragment {
             return result;
         }
 
+        /**
+         * Add the JSON values obtained in the admin table of the local database
+         */
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Log.e("result", "" + s);
-
             if (s.equals("nothing")) {
                 Log.e("nothing", "");
             } else {
@@ -261,9 +259,7 @@ public class MyComplainsFragment extends Fragment {
                         db.addAdmin(contentValues);
                     }
                     db.close();
-
                     Cursor c = new DB(getActivity()).getList();
-                    // db.close();
                     adapter = new ComplainAdapter(getActivity(), R.layout.complain_item,
                             c, new String[]{"_id", "title", "status", "datecreated"},
                             new int[]{R.id.item_hidden, R.id.item_title, R.id.item_status

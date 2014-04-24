@@ -9,6 +9,7 @@ import android.util.Log;
 
 /**
  * Created by Aagam Shah on 28/3/14.
+ * Database structure of the offline database
  */
 public class DB extends SQLiteOpenHelper {
 
@@ -51,7 +52,12 @@ public class DB extends SQLiteOpenHelper {
 
     }
 
-    public void add(troubleshoot.app.Complain c) {
+    /**
+     * Add new Complain to the databse
+     *
+     * @param c Object of {@link troubleshoot.app.Complain} with the details
+     */
+    public void add(Complain c) {
 
         SQLiteDatabase db = getWritableDatabase();
 
@@ -66,20 +72,23 @@ public class DB extends SQLiteOpenHelper {
         values.put("datecreated", c.date);
         db.insert("complain", null, values);
         db.close();
-
-        //return true;
     }
 
-
+    /**
+     * Remove old admin database of the complains and create new
+     */
     public void adminDrop() {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL(DROP_TABLE_ADMIN);
         db.execSQL(CREATE_TABLE_ADMIN);
     }
 
-
-
-
+    /**
+     * Get a specific complain by its id
+     *
+     * @param id
+     * @return respected Complain
+     */
     public troubleshoot.app.Complain getComplain(int id) {
         SQLiteDatabase db = getWritableDatabase();
 
@@ -98,24 +107,25 @@ public class DB extends SQLiteOpenHelper {
         if (status.toLowerCase().equals("pending")) {
             cp = new troubleshoot.app.Complain(complainid, title, status, locality, img_l, img_ol);
         } else if (status.toLowerCase().equals("approved")) {
-            Cursor c1 = db.query("admin", new String[]{"date","officer","reviewer"
+            Cursor c1 = db.query("admin", new String[]{"date", "officer", "reviewer"
                             , "reviewercomment", "officercomment"},
-                    "complainid = " + complainid, null, null, null, null);
+                    "complainid = " + complainid, null, null, null, null
+            );
 
 
-            if(c1.getCount()<1){
-                Log.e("null","admin");
-               troubleshoot.app.Complain cp1 = new troubleshoot.app.Complain(complainid, title, status, locality, img_l, img_ol);
+            if (c1.getCount() < 1) {
+                Log.e("null", "admin");
+                troubleshoot.app.Complain cp1 = new troubleshoot.app.Complain(complainid, title, status, locality, img_l, img_ol);
                 return cp1;
             }
             c1.moveToFirst();
-            String reviewer =c1.getString(c1.getColumnIndex("reviewer"));
-            String reviewer_c =c1.getString(c1.getColumnIndex("reviewercomment"));
-            String officer =c1.getString(c1.getColumnIndex("officer"));
-            String officer_c =c1.getString(c1.getColumnIndex("officercomment"));
+            String reviewer = c1.getString(c1.getColumnIndex("reviewer"));
+            String reviewer_c = c1.getString(c1.getColumnIndex("reviewercomment"));
+            String officer = c1.getString(c1.getColumnIndex("officer"));
+            String officer_c = c1.getString(c1.getColumnIndex("officercomment"));
             String date = c1.getString(c1.getColumnIndex("date"));
             troubleshoot.app.Complain cp2 = new troubleshoot.app.Complain(complainid, title, status, locality, img_l, img_ol,
-                    date,reviewer,reviewer_c,officer,officer_c);
+                    date, reviewer, reviewer_c, officer, officer_c);
             return cp2;
         } else {
             cp = new troubleshoot.app.Complain(complainid, title, status, locality, img_l, img_ol);
@@ -123,18 +133,18 @@ public class DB extends SQLiteOpenHelper {
         return cp;
     }
 
+    /**
+     * Get whole list of the complains present in the local database
+     */
     public Cursor getList() {
         SQLiteDatabase db = getWritableDatabase();
-     /*   Cursor c = db != null ? db.query("complain", new String[]{"_id","title","status","locality"},
-                "title=?",
-                new String[] {"finale check"}, null, null, null, null) : null;*/
+
         try {
             Cursor c = db != null ? db.query("complain", new String[]{"_id", "title", "status",
                             "datecreated"},
                     null, null, null, null, "complainid DESC", null
             ) : null;
 
-            //db.close();
             return c;
         } catch (Exception e) {
             e.printStackTrace();
@@ -142,6 +152,11 @@ public class DB extends SQLiteOpenHelper {
         return null;
     }
 
+    /**
+     * Change the status of a complain from its id
+     *
+     * @param complainid The complain id whose status is to be modified
+     */
     public void changeStatus(int complainid) {
         ContentValues values = new ContentValues();
         values.put("status", "Approved");
@@ -150,11 +165,14 @@ public class DB extends SQLiteOpenHelper {
             database.update("complain", values, "complainid = " + complainid, null);
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("nullpointer", "adding complain");
         }
 
     }
 
+    /**
+     * After fetching the image location,storing the local image path of
+     * of the specific complain
+     */
     public void addImagePath(String s, int id) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -168,6 +186,9 @@ public class DB extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Add complain with it's id only if it is not present in the local database
+     */
     public void addORinsert(ContentValues cv, int i) {
 
 
@@ -177,46 +198,40 @@ public class DB extends SQLiteOpenHelper {
                     "complainid = " + i, null, null, null, null);
 
             int ct = c.getCount();
-            // Log.e("count", "" + ct);
             if (ct < 1) {
                 db.insert("complain", null, cv);
             } else {
                 try {
                     if (!cv.getAsString("status").toLowerCase().equals("pending")) {
                         cv.remove("img_loc");
-
                         db.update("complain", cv, "complainid = " + i, null);
                     }
                 } catch (Exception e) {
-                    Log.e("error", "insert non pending");
                     e.printStackTrace();
-
                 }
             }
             db.close();
         } catch (Exception e) {
-            Log.e("error in DB addOrinse", "");
             e.printStackTrace();
         }
     }
 
+    /**
+     * Add the admin information of a complain in the admin database
+     */
     public void addAdmin(ContentValues c) {
         SQLiteDatabase db = getWritableDatabase();
         try {
-           long id =  db.insert("admin", null, c);
-            if(id==-1){
-                Log.e("error","isnering admin");
+            long id = db.insert("admin", null, c);
+            if (id == -1) {
+                Log.e("error", "inserting admin");
 
-            }
-            else{
-                Log.e("success admin","id "+id);
+            } else {
+                Log.e("success admin", "id " + id);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("error adding", "admin");
         }
         db.close();
-
-        //return true;
     }
 }

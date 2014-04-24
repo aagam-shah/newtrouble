@@ -73,7 +73,7 @@ public class Signup2 extends Activity {
         imgbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder d= new AlertDialog.Builder(context);
+                AlertDialog.Builder d = new AlertDialog.Builder(context);
                 d.setItems(R.array.select, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
@@ -81,10 +81,10 @@ public class Signup2 extends Activity {
                             Intent intent = new Intent(
                                     Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                             startActivityForResult(intent, 133);
-                        }else{
+                        } else {
                             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                             fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
-                            intent.putExtra(MediaStore.EXTRA_OUTPUT,fileUri);
+                            intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
                             startActivityForResult(intent, 112);
                         }
                     }
@@ -112,6 +112,9 @@ public class Signup2 extends Activity {
 
     public String imagepath;
 
+    /**
+     * Show the image after selecting the image from the picker dialog
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -123,6 +126,8 @@ public class Signup2 extends Activity {
                     "User cancelled image capture", Toast.LENGTH_SHORT)
                     .show();
         }
+
+        //Display the image according to the resolution of the phone
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inSampleSize = 2;
         options.inJustDecodeBounds = false;
@@ -133,34 +138,40 @@ public class Signup2 extends Activity {
             Uri selectedImageUri = data.getData();
             imagepath = getPath(selectedImageUri);
 
-            Bitmap bitmap = BitmapFactory.decodeFile(imagepath,options);
+            Bitmap bitmap = BitmapFactory.decodeFile(imagepath, options);
 
             imgbutton.setImageBitmap(bitmap);
             submit.setEnabled(true);
             Log.e("pathin 1", imagepath);
             Toast.makeText(getApplicationContext(), "path: " + imagepath, Toast.LENGTH_SHORT).show();
-            //new Uploader(""+imagepath,getActivity()).execute();
         }
-        if(requestCode==112){
+        if (requestCode == 112) {
 
-            imagepath=path;
-            Bitmap bitmap = BitmapFactory.decodeFile(path,options);
+            imagepath = path;
+            Bitmap bitmap = BitmapFactory.decodeFile(path, options);
             submit.setEnabled(true);
             imgbutton.setImageBitmap(bitmap);
         }
     }
+
+    /**
+     * Get the URI of the type of image
+     */
     public Uri getOutputMediaFileUri(int type) {
         return Uri.fromFile(getOutputMediaFile(type));
     }
-    //returning image / video
 
-    private  File getOutputMediaFile(int type) {
+    /**
+     * Create new file with the @type of image and return it
+     */
+    private File getOutputMediaFile(int type) {
 
         // External sdcard location
         File mediaStorageDir = new File(
                 Environment
                         .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-                IMAGE_DIRECTORY_NAME);
+                IMAGE_DIRECTORY_NAME
+        );
 
         // Create the storage directory if it does not exist
         if (!mediaStorageDir.exists()) {
@@ -178,16 +189,19 @@ public class Signup2 extends Activity {
         File mediaFile;
         if (type == MEDIA_TYPE_IMAGE) {
             mediaFile = new File(mediaStorageDir.getPath() + File.separator
-                    + "TS_"+preferences.getInt("id",0)+"_" + timeStamp + ".jpg");
-            path=mediaStorageDir.getPath() + File.separator
-                    + "TS_"+preferences.getInt("id",0)+"_" + timeStamp + ".jpg";
-        }  else {
+                    + "TS_" + preferences.getInt("id", 0) + "_" + timeStamp + ".jpg");
+            path = mediaStorageDir.getPath() + File.separator
+                    + "TS_" + preferences.getInt("id", 0) + "_" + timeStamp + ".jpg";
+        } else {
             return null;
         }
 
         return mediaFile;
     }
 
+    /**
+     * Get path of the image selected from the gallery/camera
+     */
     public String getPath(Uri uri) {
         String[] projection = {MediaStore.Images.Media.DATA};
         Cursor cursor = managedQuery(uri, projection, null, null, null);
@@ -197,6 +211,11 @@ public class Signup2 extends Activity {
     }
 
 
+    /**
+     * Send all the data online and accordingly display the message.
+     * It might happen that the phone no exists.So show error accordingly
+     *
+     */
     class SignUp extends AsyncTask<String, String, String> {
         public ProgressDialog dialog;
 
@@ -206,8 +225,6 @@ public class Signup2 extends Activity {
             dialog = ProgressDialog.show(Signup2.this, "", "Signing up...");
             Log.e("pre", "yoo");
         }
-
-
 
 
         public int calculateInSampleSize(
@@ -233,14 +250,14 @@ public class Signup2 extends Activity {
             return inSampleSize;
         }
 
-        public  Bitmap decodeSampledBitmapFromResource(String paths,
-                                                       int reqWidth, int reqHeight) {
+        public Bitmap decodeSampledBitmapFromResource(String paths,
+                                                      int reqWidth, int reqHeight) {
 
             // First decode with inJustDecodeBounds=true to check dimensions
             final BitmapFactory.Options options = new BitmapFactory.Options();
             options.inJustDecodeBounds = true;
             //BitmapFactory.decodeResource(res, resId, options);
-            BitmapFactory.decodeFile(paths,options);
+            BitmapFactory.decodeFile(paths, options);
             // Calculate inSampleSize
             options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
 
@@ -267,8 +284,8 @@ public class Signup2 extends Activity {
             }
             Log.e("app", "success");
 
-           // Bitmap bitmap = BitmapFactory.decodeFile(imagepath);
-            Bitmap bmp = decodeSampledBitmapFromResource(imagepath,640,480);
+            // Bitmap bitmap = BitmapFactory.decodeFile(imagepath);
+            Bitmap bmp = decodeSampledBitmapFromResource(imagepath, 640, 480);
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             bmp.compress(Bitmap.CompressFormat.JPEG, 50, outputStream);
             bmp.recycle();
@@ -343,7 +360,7 @@ public class Signup2 extends Activity {
                 editor.putString("img_ol", "https://blog-aagam.rhcloud.com/" + retlocation);
                 editor.putString("phone", phones);
                 editor.putString("email", emails);
-		        editor.putString("password", passws);
+                editor.putString("password", passws);
                 //add champion feature
                 editor.putInt("champion_month", 0);
                 editor.putInt("champion_year", 0);
@@ -358,7 +375,7 @@ public class Signup2 extends Activity {
                 startActivity(i);
                 finish();
             } else {
-                
+
                 if (s.toLowerCase().equals("exist"))
                     Toast.makeText(Signup2.this, "Phone number already exist", Toast.LENGTH_SHORT);
                 else

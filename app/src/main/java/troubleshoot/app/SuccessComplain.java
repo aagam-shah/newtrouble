@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 /**
  * Created by Aagam Shah on 29/3/14.
+ * After the complain is sucessfully added,show the complain id.
  */
 public class SuccessComplain extends Fragment {
     @Override

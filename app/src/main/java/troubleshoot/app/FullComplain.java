@@ -27,6 +27,8 @@ import java.util.Date;
 
 /**
  * Created by Aagam Shah on 26/3/14.
+ * On clickin any complain in the list, FullComplain is displayed with
+ * all of it's information
  */
 public class FullComplain extends ActionBarActivity {
     public TextView titletv, location;
@@ -37,17 +39,21 @@ public class FullComplain extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        //Get the id of the complain whose all details are to be shown
         id = getIntent().getIntExtra("id", 0);
         DB db = new DB(getApplicationContext());
         Complain complain = db.getComplain(id);
         db.close();
         setContentView(R.layout.full_complain);
+        //Set the layout values according to the values obtained of the Complain
+
         titletv = (TextView) findViewById(R.id.full_problem);
         titletv.setText(complain.title);
         complainID = complain.complainid;
         location = (TextView) findViewById(R.id.full_loc);
         location.setText(complain.locality);
+
+        //Do not show the Admin information if the complain is not approved
         if (complain.status.toLowerCase().equals("pending")) {
             LinearLayout l = (LinearLayout) findViewById(R.id.deadlinelayout);
 
@@ -57,10 +63,10 @@ public class FullComplain extends ActionBarActivity {
             l.setVisibility(View.VISIBLE);
             l = (LinearLayout) findViewById(R.id.afterapprove);
             l.setVisibility(View.GONE);
-            TextView status_view = (TextView)findViewById(R.id.full_status);
+            TextView status_view = (TextView) findViewById(R.id.full_status);
             status_view.setText("Pending Approval");
 
-        } else if(complain.status.toLowerCase().equals("spam")){
+        } else if (complain.status.toLowerCase().equals("spam")) {
             LinearLayout l = (LinearLayout) findViewById(R.id.deadlinelayout);
 
             l.setVisibility(View.GONE);
@@ -68,37 +74,32 @@ public class FullComplain extends ActionBarActivity {
             l.setVisibility(View.GONE);
             l = (LinearLayout) findViewById(R.id.beforeapprove);
             l.setVisibility(View.VISIBLE);
-            TextView status_view = (TextView)findViewById(R.id.full_status);
+            TextView status_view = (TextView) findViewById(R.id.full_status);
             status_view.setText("Rejected by team");
-        }
-        else {
+        } else {
             l = (LinearLayout) findViewById(R.id.deadlinelayout);
             TextView tv = (TextView) findViewById(R.id.full_deadline);
 
             String date_unformatted = complain.date;
 
-
-
+            //Get the expected date which is in the format of yyyy-MM-dd
             DateFormat date = new SimpleDateFormat("yyyy-MM-dd");
             Date d = null;
             try {
-                d = (Date) date.parse(date_unformatted);
-
-            DateFormat required_format = new SimpleDateFormat("dd-MM-yyyy");
-
-            tv.setText(required_format.format(d));
+                d = date.parse(date_unformatted);
+                //Modify the format and show it in the format as dd-MM-yyyy
+                DateFormat required_format = new SimpleDateFormat("dd-MM-yyyy");
+                tv.setText(required_format.format(d));
             } catch (ParseException e) {
-                Log.e("error","date");
                 e.printStackTrace();
             }
 
 
-
-            TextView crosscheck = (TextView)findViewById(R.id.full_crosscheck);
-            crosscheck.setText(complain.reviewer+", "+complain.reviewer_c);
-            TextView approver = (TextView)findViewById(R.id.full_approver);
+            TextView crosscheck = (TextView) findViewById(R.id.full_crosscheck);
+            crosscheck.setText(complain.reviewer + ", " + complain.reviewer_c);
+            TextView approver = (TextView) findViewById(R.id.full_approver);
             approver.setText(complain.officer);
-            TextView approver_c = (TextView)findViewById(R.id.full_response);
+            TextView approver_c = (TextView) findViewById(R.id.full_response);
             approver_c.setText(complain.officer_c);
 
         }
@@ -123,6 +124,11 @@ public class FullComplain extends ActionBarActivity {
     }
 
 
+    /**
+     * Download the image of the complain if it is not present locally in the device
+     * As complain posted from 1 phone can also be seen in the other phone by
+     * logging in with the same id, so the image of the complain may not be present in the device.
+     */
     class ImageDownloader extends AsyncTask<String, String, String> {
         public ImageView iv;
         public String imgurl = "";
@@ -178,6 +184,9 @@ public class FullComplain extends ActionBarActivity {
             return tempLoc;
         }
 
+        /**
+         * Display the image after fetching online
+         */
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
